@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "name": "muru",
+  "title": "Muru workshops",
+  "description": "Guided JupyterLab workshops on Muru, the routing edge, control plane and Python runtime for WSGI and ASGI applications.",
+  "collections": [
+    {
+      "name": "introduction",
+      "title": "Meet Muru",
+      "description": ""
+    }
+  ],
+  "idPrefix": "grahamdumpleton.me",
+  "repository": "https://github.com/GrahamDumpleton/muru-workshops",
+  "lite": false,
+  "python": "3.14",
+  "jupyterlab-workshop": "0.30.0",
+  "generated": {
+    ".devcontainer/devcontainer.json": "26a9dac77b64b0f5dd3519813bad21733fc613116d576395a865182e968be4f1",
+    ".devcontainer/setup.sh": "d4306100a85fcf14cc3092d2a7d4828c85fc0735582f80f2e06b0aba1451a9d8",
+    ".devcontainer/start.sh": "2a25ea1ec5316777780e95256fb240fda4bdcb6b6a160e86a1a6ad33bb3f22ae",
+    ".devcontainer/welcome.md": "bbd7aac3cbfecbc8c631e31d328b64bf04e4a09ece9f6c73c079805bb7201248",
+    ".github/workflows/test.yml": "18df09d2f39287762d6c9e2e93d0ce5e523ab86f9e83946f0f1496a1eb5e1150",
+    ".gitignore": "2e6fe2a6fe12794639d80d2150fb8d11ca530eea5f8e0eb19dbaf4233a9e4016",
+    ".mcp.json": "ad793b33944e129fd8b048a44a9f249593b5a7e4f4655e3fbef958b673283712",
+    "AGENTS.md": "a91d449c1a0176c98e230e6d325123a85f0789241eefe6c8ca6c61adcaec7cf5",
+    "CLAUDE.md": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+    "Justfile": "90cbc2d06d4bf9942e82be8511b4f1f74bd71b36003a0bf19030551230edf1d3",
+    "OUTLINE.md": "15936a54b9864d65d832bfe7c1de0ab4355ea0945f6c0dce3bd3944ef9917068",
+    "README.md": "32cb8f20efd6eaa6acd29caee00ca67dfc95221c6a6020482cdfb32b7ae033aa",
+    "binder/postBuild": "1c7c32f0298c7a91c6392f2f3c17408e75a3168095ef309b6cc6c8797bd91ea3",
+    "binder/requirements.txt": "7f5fd54de127b72852fbdb064f2ea397d5ca86ab8e04d8ae388491feb007d071",
+    "binder/runtime.txt": "343848b3d2a572650953f8357500fa36e2d2804af88c3cc210975f74da7f5b19",
+    "binder/welcome.md": "12ffb2a05ff81b622c423bca11a75942eb055fa996c72846e82c7e65ff7bb16c",
+    "catalog.json": "d7c59df92f061bfb65790a6067dbe78588034836b9f7d776da6f2062df9b923c",
+    "collections/introduction/collection.json": "47a6c989ea8b71ee0d16a35ba7d03f471ba1a5aff7047673ced8f9a37ae961aa",
+    "jupyter_lab_config.py": "270be0466a98c52bfc8c1ff79c3a6df742dbf97ef3590615631710571c7250de",
+    "pyproject.toml": "48155a2ecdd9c3dd647eb2b0ed2cf944b1f808b1ffb10c6de4162f0a357a1441",
+    "workshops/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

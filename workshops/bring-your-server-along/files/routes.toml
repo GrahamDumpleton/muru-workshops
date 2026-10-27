@@ -1,0 +1,11 @@
+# The site's one virtual host, which answers whatever name a request
+# asks for, and its one route, which sends every path to the orders
+# application. Previews of a held release work through a declared
+# route, so the preview on the next page needs it.
+
+[host.site]
+default = true
+
+[[route]]
+host = "site"
+app = "orders"

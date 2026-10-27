@@ -1,0 +1,6 @@
+[submodule "reference/jupyterlab-workshop"]
+	path = reference/jupyterlab-workshop
+	url = https://github.com/GrahamDumpleton/jupyterlab-workshop
+[submodule "reference/muru"]
+	path = reference/muru
+	url = https://github.com/GrahamDumpleton/muru

@@ -1,0 +1,30 @@
+# This repository is a course of workshops, not a Python package: uv
+# manages the environment the workshops are written, checked and run in.
+# The runtime dependencies are what a learner needs, JupyterLab and the
+# extension, and are exported to binder/requirements.txt for mybinder.org;
+# the dev group adds the MCP server and the self-test used while writing.
+# jupyterlab-workshop is pinned once, here, and the dev group's extras
+# resolve to the same release.
+#
+# Nothing the workshops teach is installed here. A workshop that needs a
+# package declares an environment of its own, pinned in its own
+# requirements.txt, which the extension builds when the workshop opens.
+[project]
+name = "muru-workshops"
+version = "0.1.0"
+description = "Guided JupyterLab workshops on Muru, the routing edge, control plane and Python runtime for WSGI and ASGI applications."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "jupyter-server-proxy>=4.4",
+    "jupyterlab>=4.6,<5",
+    "jupyterlab-workshop==0.30.0",
+]
+
+[dependency-groups]
+dev = [
+    "jupyterlab-workshop[mcp,test]",
+]
+
+[tool.uv]
+package = false

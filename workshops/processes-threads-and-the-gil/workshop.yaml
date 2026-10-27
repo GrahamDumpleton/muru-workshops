@@ -1,0 +1,64 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: processes-threads-and-the-gil
+title: Processes, threads and the GIL
+version: 0.1.0
+description: Map gunicorn's, mod_wsgi's, uvicorn's and Granian's process and thread settings onto Muru's, then load a view that waits and a view that computes under one thread, eight threads, and two processes of four, and read from the edge's queue and app times which of them helps and why.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/processes-threads-and-the-gil
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, wsgi, threads, gil, performance, python]
+duration: 30m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the application on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have measured what processes and threads buy. With one thread,
+  every request but one waited in the edge's queue. Eight threads
+  emptied the queue for both views, but only the view that waits got
+  faster: the view that computes spent the same time waiting for the
+  GIL instead. Two processes doubled what the computing view could do,
+  given two CPUs. The edge's `queue` and `app` times told the two
+  problems apart.
+
+  Next is **WSGI and ASGI from one server**, which serves both kinds of
+  application under one `muructl run`.
+
+  Muru's [process models](https://muru.readthedocs.io/en/latest/explanation/process-models.html)
+  page covers the threads, the event loop for ASGI, worker groups and
+  free-threaded Python.
+pages:
+  - pages/01-welcome.md
+  - pages/02-how-servers-divide-the-work.md
+  - pages/03-one-thread.md
+  - pages/04-more-threads.md
+  - pages/05-more-processes.md
+  - pages/06-finish.md

@@ -1,0 +1,76 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: bring-your-server-along
+title: Try Muru without changing your deployment
+version: 0.1.0
+description: Run an application's existing gunicorn command unchanged as a managed release under the Muru daemon, deploy the same application beside it as Muru's own workers, preview them, move the traffic across with a canary judged against gunicorn's numbers, and roll back to gunicorn at once, then sum up when to choose which server.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/bring-your-server-along
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, gunicorn, migration, daemon, canary, python]
+duration: 30m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+    - { name: ps }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  MURU_STATE_DIR: muru/state
+  MURU_LOG_DIR: muru/logs
+  MURU_CACHE_DIR: muru/cache
+  MURU_CONFIG: muru/muru.toml
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port the daemon serves on; change it if that port is taken
+  - name: muru_run_dir
+    type: path
+    default: /tmp/muru-server
+    description: The daemon's runtime directory, for its sockets; it must be a short absolute path
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have moved an application from gunicorn to Muru's workers without
+  changing how it is deployed. The daemon ran the gunicorn command as it
+  was, as a release; the same application on Muru's workers was held
+  beside it, previewed, and given the traffic a share at a time, judged
+  against gunicorn's numbers; and the way back to gunicorn was one
+  instant rollback.
+
+  That is the end of **Meet Muru**. You have seen where Muru fits among
+  Python web servers, what it does while you develop, and how its
+  daemon deploys releases.
+
+  To use Muru for your own applications, install the command with
+  `uv tool install muructl` and add the runtime library to each
+  application's environment with `uv add muru`. Muru's
+  [managed servers guide](https://muru.readthedocs.io/en/latest/howto/managed-servers.html)
+  covers every profile and setting, and the
+  [documentation](https://muru.readthedocs.io/) the rest.
+pages:
+  - pages/01-welcome.md
+  - pages/02-gunicorn-as-it-is.md
+  - pages/03-muru-workers-beside-it.md
+  - pages/04-move-the-traffic.md
+  - pages/05-back-to-gunicorn.md
+  - pages/06-finish.md

@@ -1,0 +1,405 @@
+{
+  "version": 1,
+  "id": "grahamdumpleton.me/muru/introduction",
+  "title": "Meet Muru",
+  "description": "Guided JupyterLab workshops introducing Muru: where it fits among Python web servers, what it does while you develop, and how its daemon deploys releases without downtime, compared throughout with Apache and mod_wsgi, gunicorn, uvicorn and Granian.",
+  "homepage": "https://github.com/GrahamDumpleton/muru-workshops",
+  "ordered": true,
+  "analytics": {
+    "sink": "https://workshop-analytics.grumpys.work/events",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhOGMzMTk3NTJlMWY0NzZmYmE0ZmJhY2E3ZDI4MzRhNyIsInN1YiI6IndyYXB0dXJlLXdvcmtzaG9wcyIsInNjb3BlIjpbImluZ2VzdCJdLCJsYWJlbHMiOnt9LCJvcmlnaW5zIjpbXSwiaWF0IjoxNzkwNTUxNjc0LCJuYmYiOjE3OTA1NTE2NzQsImV4cCI6MTgyMTU3MTE5OX0.oSkN37BWeenpU6tX13m11WRpjViT1yFgMlzJhkpoz2M"
+  },
+  "workshops": [
+    {
+      "name": "where-muru-fits",
+      "title": "Where Muru fits among Python web servers",
+      "description": "See how Apache with mod_wsgi, gunicorn, uvicorn and Granian divide the work of serving a Python web application, then serve one under muructl run and look at the processes Muru uses instead, what each one does, and what happens when a request or a worker fails.",
+      "tags": [
+        "muru",
+        "wsgi",
+        "python",
+        "deployment"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "web-proxy"
+      ],
+      "duration": "25m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/where-muru-fits",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/where-muru-fits"
+          }
+        }
+      ]
+    },
+    {
+      "name": "what-muructl-run-tells-you",
+      "title": "Serve an app and read what it tells you",
+      "description": "Serve a small Flask application under muructl run and read what it reports while you develop, from the startup lines and the access log to your code's output tagged by worker, error pages with the traceback for browsers and API clients, and the dashboard, compared with what gunicorn and uvicorn report.",
+      "tags": [
+        "muru",
+        "flask",
+        "wsgi",
+        "logging",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "web-proxy"
+      ],
+      "duration": "25m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/what-muructl-run-tells-you",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/what-muructl-run-tells-you"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reload-and-https-in-development",
+      "title": "Reload, HTTPS and HTTP/2 on your laptop",
+      "description": "See what muructl run --reload replaces when you save, compared with gunicorn and uvicorn, keep serving through a change and through a syntax error, then serve the same application over HTTPS with a development certificate and watch HTTP/2 negotiated over TLS.",
+      "tags": [
+        "muru",
+        "wsgi",
+        "reload",
+        "https",
+        "http2",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "write-files",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "20m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/reload-and-https-in-development",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/reload-and-https-in-development"
+          }
+        }
+      ]
+    },
+    {
+      "name": "import-once-fork-safely",
+      "title": "Import once, fork safely",
+      "description": "See what a fork leaves behind when an application opens a socket and starts a thread at import, as under gunicorn --preload, then watch Muru's import check find both before it forks, fall back or refuse to start, and move the work into a post_fork hook so the workers are forked from a preloaded host again.",
+      "tags": [
+        "muru",
+        "wsgi",
+        "preload",
+        "fork",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "write-files",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "25m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/import-once-fork-safely",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/import-once-fork-safely"
+          }
+        }
+      ]
+    },
+    {
+      "name": "processes-threads-and-the-gil",
+      "title": "Processes, threads and the GIL",
+      "description": "Map gunicorn's, mod_wsgi's, uvicorn's and Granian's process and thread settings onto Muru's, then load a view that waits and a view that computes under one thread, eight threads, and two processes of four, and read from the edge's queue and app times which of them helps and why.",
+      "tags": [
+        "muru",
+        "wsgi",
+        "threads",
+        "gil",
+        "performance",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "30m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/processes-threads-and-the-gil",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/processes-threads-and-the-gil"
+          }
+        }
+      ]
+    },
+    {
+      "name": "wsgi-and-asgi-together",
+      "title": "WSGI and ASGI from one server",
+      "description": "Serve a Flask application at / and a FastAPI application at /api from the same Muru workers, declared as mounts in pyproject.toml, see what prefix each one sees, and talk to the FastAPI side over WebSockets from the browser and the terminal, with each socket in the access log and on the dashboard, compared with the two servers and the proxy the same site usually takes.",
+      "tags": [
+        "muru",
+        "wsgi",
+        "asgi",
+        "flask",
+        "fastapi",
+        "websocket",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "web-proxy"
+      ],
+      "duration": "25m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/wsgi-and-asgi-together",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/wsgi-and-asgi-together"
+          }
+        }
+      ]
+    },
+    {
+      "name": "deploying-without-downtime",
+      "title": "Deploy without dropping a request",
+      "description": "Start the Muru daemon, deploy a release, then deploy the next one and roll back while a steady stream of requests runs, with no request going unanswered, and look at the daemon, the edge and each release's host and workers, compared with gunicorn's HUP, a mod_wsgi restart and two deployments behind a load balancer.",
+      "tags": [
+        "muru",
+        "deployment",
+        "daemon",
+        "rollback",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "30m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/deploying-without-downtime",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/deploying-without-downtime"
+          }
+        }
+      ]
+    },
+    {
+      "name": "canary-a-release",
+      "title": "Canary a release and let it roll back",
+      "description": "Hold a new release beside the serving one on the Muru daemon, preview it with a header, canary it through 10% and 50% of a steady stream of requests until it is promoted, then canary a release with a bug and watch its error rate gate roll it back on its own, compared with a canary built from two deployments and a load balancer.",
+      "tags": [
+        "muru",
+        "deployment",
+        "daemon",
+        "canary",
+        "rollout",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "30m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/canary-a-release",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/canary-a-release"
+          }
+        }
+      ]
+    },
+    {
+      "name": "what-nginx-was-for",
+      "title": "What you would have put nginx in front for",
+      "description": "Serve a shop on the Muru daemon from one configuration file, and check with curl what the edge does that nginx in front of an application server usually does, static files with conditional requests and precompressed variants, compressed responses, a file the application chooses, the site's own error pages and a maintenance page, beside the nginx configuration each one replaces.",
+      "tags": [
+        "muru",
+        "nginx",
+        "static-files",
+        "compression",
+        "daemon",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "30m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/what-nginx-was-for",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/what-nginx-was-for"
+          }
+        }
+      ]
+    },
+    {
+      "name": "bring-your-server-along",
+      "title": "Try Muru without changing your deployment",
+      "description": "Run an application's existing gunicorn command unchanged as a managed release under the Muru daemon, deploy the same application beside it as Muru's own workers, preview them, move the traffic across with a canary judged against gunicorn's numbers, and roll back to gunicorn at once, then sum up when to choose which server.",
+      "tags": [
+        "muru",
+        "gunicorn",
+        "migration",
+        "daemon",
+        "canary",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "30m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/bring-your-server-along",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/bring-your-server-along"
+          }
+        }
+      ]
+    }
+  ]
+}

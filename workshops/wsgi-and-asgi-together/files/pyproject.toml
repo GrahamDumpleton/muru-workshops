@@ -1,0 +1,15 @@
+[project]
+name = "orders"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+# What muructl run serves when it is given no entrypoint: the Flask
+# application at /, and the FastAPI application mounted at /api, from
+# the same two worker processes.
+[tool.muru]
+entrypoint = "web:app"
+processes = 2
+
+[tool.muru.mounts.api]
+path = "/api"
+entrypoint = "api:app"

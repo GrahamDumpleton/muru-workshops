@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "title": "Muru workshops",
+  "description": "Guided JupyterLab workshops on Muru, the routing edge, control plane and Python runtime for WSGI and ASGI applications.",
+  "homepage": "https://github.com/GrahamDumpleton/muru-workshops",
+  "collections": [
+    {
+      "url": "collections/introduction/collection.json",
+      "id": "grahamdumpleton.me/muru/introduction",
+      "title": "Meet Muru",
+      "description": "Guided JupyterLab workshops introducing Muru: where it fits among Python web servers, what it does while you develop, and how its daemon deploys releases without downtime, compared throughout with Apache and mod_wsgi, gunicorn, uvicorn and Granian.",
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: canary-a-release
+title: Canary a release and let it roll back
+version: 0.1.0
+description: Hold a new release beside the serving one on the Muru daemon, preview it with a header, canary it through 10% and 50% of a steady stream of requests until it is promoted, then canary a release with a bug and watch its error rate gate roll it back on its own, compared with a canary built from two deployments and a load balancer.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/canary-a-release
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, deployment, daemon, canary, rollout, python]
+duration: 30m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  MURU_STATE_DIR: muru/state
+  MURU_LOG_DIR: muru/logs
+  MURU_CACHE_DIR: muru/cache
+  MURU_CONFIG: muru/muru.toml
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port the daemon serves on; change it if that port is taken
+  - name: muru_run_dir
+    type: path
+    default: /tmp/muru-canary
+    description: The daemon's runtime directory, for its sockets; it must be a short absolute path
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have canaried two releases on the Muru daemon. A held release
+  took no traffic until you previewed it by name. The rollout gave the
+  good one 10% and then 50% of the requests and promoted it when its
+  gates passed, and took the bad one out on its own at 10%, as soon as
+  its error rate was over the limit and worse than the baseline's.
+
+  Next is **What you would have put nginx in front for**, which looks
+  at what the edge does that a proxy in front of an application server
+  usually does.
+
+  Muru's [rollouts guide](https://muru.readthedocs.io/en/latest/howto/rollouts.html)
+  covers every gate and the commands that control a rollout, and the
+  [traffic guide](https://muru.readthedocs.io/en/latest/howto/traffic.html)
+  the splits, sticky clients and previews they are built on.
+pages:
+  - pages/01-welcome.md
+  - pages/02-the-serving-release.md
+  - pages/03-hold-and-preview.md
+  - pages/04-a-canary-that-passes.md
+  - pages/05-a-canary-that-fails.md
+  - pages/06-finish.md

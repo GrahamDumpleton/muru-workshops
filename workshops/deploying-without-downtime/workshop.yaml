@@ -1,0 +1,73 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: deploying-without-downtime
+title: Deploy without dropping a request
+version: 0.1.0
+description: Start the Muru daemon, deploy a release, then deploy the next one and roll back while a steady stream of requests runs, with no request going unanswered, and look at the daemon, the edge and each release's host and workers, compared with gunicorn's HUP, a mod_wsgi restart and two deployments behind a load balancer.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/deploying-without-downtime
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, deployment, daemon, rollback, python]
+duration: 30m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+    - { name: ps }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  MURU_STATE_DIR: muru/state
+  MURU_LOG_DIR: muru/logs
+  MURU_CACHE_DIR: muru/cache
+  MURU_CONFIG: muru/muru.toml
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port the daemon serves on; change it if that port is taken
+  - name: muru_run_dir
+    type: path
+    default: /tmp/muru-deploy
+    description: The daemon's runtime directory, for its sockets; it must be a short absolute path
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have deployed to the Muru daemon without dropping a request. Each
+  deploy started a release beside the one serving, and the edge
+  switched to it when its workers were ready; the old release was kept
+  warm, so the rollback was instant. The edge, the daemon and each
+  release's host are separate processes, and the daemon is never on
+  the request path.
+
+  Next is **Canary a release and let it roll back**, which gives a new
+  release a share of the traffic at a time and judges it as it goes.
+
+  Muru's [daemon guide](https://muru.readthedocs.io/en/latest/howto/daemon.html)
+  covers releases, retention, applying files, and stopping and
+  upgrading the daemon without interrupting traffic.
+pages:
+  - pages/01-welcome.md
+  - pages/02-start-the-daemon.md
+  - pages/03-the-first-release.md
+  - pages/04-deploy-under-load.md
+  - pages/05-roll-back.md
+  - pages/06-the-processes.md
+  - pages/07-finish.md

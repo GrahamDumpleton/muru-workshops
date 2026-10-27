@@ -1,0 +1,73 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: where-muru-fits
+title: Where Muru fits among Python web servers
+version: 0.1.0
+description: See how Apache with mod_wsgi, gunicorn, uvicorn and Granian divide the work of serving a Python web application, then serve one under muructl run and look at the processes Muru uses instead, what each one does, and what happens when a request or a worker fails.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/where-muru-fits
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, wsgi, python, deployment]
+duration: 25m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - web-proxy
+requires:
+  tools:
+    - { name: curl }
+    - { name: ps }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the application on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have served a WSGI application under `muructl run` and seen the
+  processes behind it. The edge, in Rust, talks to clients, queues
+  requests and writes the access log. The host imported your code once
+  and forked the workers, and the workers run your code without ever
+  talking to a client. An exception in your code was a 500 from a
+  worker that carried on; a worker that died was a 502 from the edge
+  and a replacement forked from the host. Under the daemon the same
+  split lets several releases of an application run side by side
+  behind one edge.
+
+  Next is **Serve an app and read what it tells you**, which looks at
+  what `muructl run` reports while you develop: the access log, error
+  pages for browsers and for API clients, and the dashboard.
+
+  Muru's [architecture](https://muru.readthedocs.io/en/latest/explanation/architecture.html)
+  page describes the three kinds of process and the path a request
+  takes, and the
+  [tutorial](https://muru.readthedocs.io/en/latest/tutorials/first-wsgi-app.html)
+  covers `muructl run` from the start.
+pages:
+  - pages/01-welcome.md
+  - pages/02-how-python-apps-are-served.md
+  - pages/03-muru-in-one-picture.md
+  - pages/04-a-request-through-the-edge.md
+  - pages/05-the-processes-behind-it.md
+  - pages/06-when-a-worker-fails.md
+  - pages/07-from-development-to-the-daemon.md
+  - pages/08-finish.md

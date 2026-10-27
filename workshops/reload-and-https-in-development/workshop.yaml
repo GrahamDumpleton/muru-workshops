@@ -1,0 +1,71 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: reload-and-https-in-development
+title: Reload, HTTPS and HTTP/2 on your laptop
+version: 0.1.0
+description: See what muructl run --reload replaces when you save, compared with gunicorn and uvicorn, keep serving through a change and through a syntax error, then serve the same application over HTTPS with a development certificate and watch HTTP/2 negotiated over TLS.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/reload-and-https-in-development
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, wsgi, reload, https, http2, python]
+duration: 20m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - write-files
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  MURU_CACHE_DIR: muru-cache
+  CAROOT: muru-cache/no-mkcert
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves HTTP on; change it if that port is taken
+  - name: https_port
+    type: number
+    default: 8443
+    description: Port muructl run serves HTTPS on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have reloaded an application under `muructl run` and served it
+  over HTTPS. A reload starts a new release beside the one serving and
+  switches to it once its workers are ready, so no request is refused,
+  and a change that fails to import leaves the old release serving.
+  `--https` adds a TLS listener with a development certificate, and
+  over it clients and your code get HTTP/2, `wsgi.url_scheme` of
+  `https`, and the TLS details in `muru.tls`.
+
+  Next is **Import once, fork safely**, which looks at what Muru checks
+  before it forks workers from a preloaded application.
+
+  Muru's [HTTPS guide](https://muru.readthedocs.io/en/latest/howto/https.html)
+  covers trusted certificates with mkcert, extra host names and
+  `--https-only`.
+pages:
+  - pages/01-welcome.md
+  - pages/02-reload-on-save.md
+  - pages/03-a-change-while-serving.md
+  - pages/04-a-change-that-breaks.md
+  - pages/05-https-and-http2.md
+  - pages/06-finish.md

@@ -1,0 +1,55 @@
+# Lint the catalog, every collection index and every workshop, and
+# self-test every workshop, which is what `just lint` and `just test-all`
+# do locally. The commands are spelled out rather than run through the
+# Justfile so the job needs nothing but uv. A workshop with an
+# environment of its own installs it during the self-test, so the job
+# needs network access.
+name: test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install the locked environment and the self-test browser
+        run: |
+          uv sync
+          uv run playwright install --with-deps chromium
+
+      - name: Lint the catalog, every collection and every workshop
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          uv run jupyter workshop lint catalog.json
+          for index in collections/*/collection.json; do
+            uv run jupyter workshop lint "$index"
+          done
+          for workshop in workshops/*/; do
+            uv run jupyter workshop lint "$workshop"
+          done
+
+      - name: Self-test every workshop
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for workshop in workshops/*/; do
+            name=$(basename "$workshop")
+            uv run jupyter workshop test "$workshop" --junit "results-$name.xml"
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results
+          path: results-*.xml
+          if-no-files-found: ignore

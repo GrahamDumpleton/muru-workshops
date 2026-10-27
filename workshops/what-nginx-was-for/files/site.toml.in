@@ -1,0 +1,35 @@
+# The shop: one application and one directory of static files on one
+# virtual host. @SITE@ stands for the absolute path of the site
+# directory, which the daemon needs for the static files, the files the
+# application may hand the edge, and the error pages.
+
+[app.shop.release.r1]
+source = "@SITE@/app"
+entrypoint = "shop:application"
+
+# The edge may send files the application names with X-Muru-Sendfile,
+# but only from here.
+sendfile_roots = ["@SITE@/reports"]
+
+# Replace the application's own 404 with the error page below, for
+# clients that ask for HTML. API clients keep the application's answer.
+error_override = { statuses = [404], when = "html_only" }
+
+[app.shop.release.r1.error_pages]
+404 = { file = "@SITE@/pages/404.html" }
+"503:maintenance" = { file = "@SITE@/pages/maintenance.html" }
+
+[host.shop]
+default = true
+
+# Files under /static/ are served by the edge itself.
+[[route]]
+host = "shop"
+path = "/static/"
+static = "@SITE@/static"
+cache = { max_age = "1h" }
+
+# Everything else goes to the application.
+[[route]]
+host = "shop"
+app = "shop"

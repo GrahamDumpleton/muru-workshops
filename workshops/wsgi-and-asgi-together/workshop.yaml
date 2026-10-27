@@ -1,0 +1,73 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: wsgi-and-asgi-together
+title: WSGI and ASGI from one server
+version: 0.1.0
+description: Serve a Flask application at / and a FastAPI application at /api from the same Muru workers, declared as mounts in pyproject.toml, see what prefix each one sees, and talk to the FastAPI side over WebSockets from the browser and the terminal, with each socket in the access log and on the dashboard, compared with the two servers and the proxy the same site usually takes.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/wsgi-and-asgi-together
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, wsgi, asgi, flask, fastapi, websocket, python]
+duration: 25m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - web-proxy
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the site on; change it if that port is taken
+  - name: dashboard_port
+    type: number
+    default: 8081
+    description: Port muructl run serves its dashboard on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have served a Flask application and a FastAPI application from
+  the same Muru workers. The mounts in `pyproject.toml` put FastAPI at
+  `/api`, the edge chose the mount by the path, and each application
+  saw the prefix the way its interface expects: `SCRIPT_NAME` for
+  WSGI, `root_path` for ASGI. The edge carried the WebSockets, from a
+  browser pane and from the terminal, with no proxy in front, logged
+  each one when it opened and when it closed, and counted them on the
+  dashboard. Stopping the site closed the last one with 1001.
+
+  Next is **Deploy without dropping a request**, which moves from
+  `muructl run` to the daemon.
+
+  Muru's [mounts guide](https://muru.readthedocs.io/en/latest/howto/mounts.html)
+  covers threads of a mount's own and internal mounts, and the
+  [Starlette and FastAPI guide](https://muru.readthedocs.io/en/latest/howto/starlette-and-fastapi.html)
+  the settings that matter for ASGI, and the
+  [ASGI guide](https://muru.readthedocs.io/en/latest/howto/asgi.html)
+  how WebSockets are logged, counted and closed.
+pages:
+  - pages/01-welcome.md
+  - pages/02-one-site-two-interfaces.md
+  - pages/03-what-each-side-sees.md
+  - pages/04-a-websocket.md
+  - pages/05-sockets-on-the-dashboard.md
+  - pages/06-finish.md

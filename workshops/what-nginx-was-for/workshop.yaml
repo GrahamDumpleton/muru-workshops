@@ -1,0 +1,75 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: what-nginx-was-for
+title: What you would have put nginx in front for
+version: 0.1.0
+description: Serve a shop on the Muru daemon from one configuration file, and check with curl what the edge does that nginx in front of an application server usually does, static files with conditional requests and precompressed variants, compressed responses, a file the application chooses, the site's own error pages and a maintenance page, beside the nginx configuration each one replaces.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/what-nginx-was-for
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, nginx, static-files, compression, daemon, python]
+duration: 30m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+    - { name: sed }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  MURU_STATE_DIR: muru/state
+  MURU_LOG_DIR: muru/logs
+  MURU_CACHE_DIR: muru/cache
+  MURU_CONFIG: muru/muru.toml
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port the daemon serves on; change it if that port is taken
+  - name: muru_run_dir
+    type: path
+    default: /tmp/muru-edge
+    description: The daemon's runtime directory, for its sockets; it must be a short absolute path
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have served a shop from one Muru configuration file, with no
+  proxy in front. The edge sent the static files, with conditional
+  requests and the precompressed variant, compressed the application's
+  JSON, sent the report the application named, put the site's own page
+  in place of the application's 404 for browsers, and answered every
+  request with the maintenance page while maintenance was on.
+
+  Next is **Try Muru without changing your deployment**, which runs an
+  existing gunicorn command under the daemon and moves its traffic to
+  Muru's workers a step at a time.
+
+  Muru's guides to [static files](https://muru.readthedocs.io/en/latest/howto/static-files.html),
+  [compression](https://muru.readthedocs.io/en/latest/howto/compression.html),
+  [file hints](https://muru.readthedocs.io/en/latest/howto/file-hints.html) and
+  [error pages](https://muru.readthedocs.io/en/latest/howto/error-pages.html)
+  cover every setting.
+pages:
+  - pages/01-welcome.md
+  - pages/02-one-configuration.md
+  - pages/03-static-files.md
+  - pages/04-compression-and-file-hints.md
+  - pages/05-error-pages-and-maintenance.md
+  - pages/06-finish.md

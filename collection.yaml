@@ -1,0 +1,10 @@
+# What the workshop manifests cannot supply to the collection indexes:
+# the analytics block, which `just index` copies into every index under
+# collections/ when it writes them. The sink is the workshops' own
+# analytics service. One ingest token serves every collection and every
+# deployment, since each event carries its collection's id and says
+# whether it came from Binder or Codespaces. The token is public by
+# construction, since the indexes are.
+analytics:
+  sink: https://workshop-analytics.grumpys.work/events
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhOGMzMTk3NTJlMWY0NzZmYmE0ZmJhY2E3ZDI4MzRhNyIsInN1YiI6IndyYXB0dXJlLXdvcmtzaG9wcyIsInNjb3BlIjpbImluZ2VzdCJdLCJsYWJlbHMiOnt9LCJvcmlnaW5zIjpbXSwiaWF0IjoxNzkwNTUxNjc0LCJuYmYiOjE3OTA1NTE2NzQsImV4cCI6MTgyMTU3MTE5OX0.oSkN37BWeenpU6tX13m11WRpjViT1yFgMlzJhkpoz2M

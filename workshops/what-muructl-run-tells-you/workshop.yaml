@@ -1,0 +1,73 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: what-muructl-run-tells-you
+title: Serve an app and read what it tells you
+version: 0.1.0
+description: Serve a small Flask application under muructl run and read what it reports while you develop, from the startup lines and the access log to your code's output tagged by worker, error pages with the traceback for browsers and API clients, and the dashboard, compared with what gunicorn and uvicorn report.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/what-muructl-run-tells-you
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, flask, wsgi, logging, python]
+duration: 25m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - web-proxy
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the application on; change it if that port is taken
+  - name: dashboard_port
+    type: number
+    default: 8081
+    description: Port muructl run serves its dashboard on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have served a Flask application under `muructl run` and read
+  what it reports. The edge writes the access log, with the time each
+  request waited for a worker and the time your code took. The host
+  relays your code's output tagged with the worker that wrote it. When
+  your code raises, the edge answers with the traceback, as HTML for a
+  browser and as a problem document for an API client, and one request
+  id ties the page, the log line and the response header together. The
+  dashboard shows the same figures over time.
+
+  Next is **Reload, HTTPS and HTTP/2 on your laptop**, which looks at
+  how close to production a development run can get.
+
+  Muru's [logging guide](https://muru.readthedocs.io/en/latest/howto/logging.html)
+  and [dashboard guide](https://muru.readthedocs.io/en/latest/howto/dashboard.html)
+  cover the options, and the
+  [error reference](https://muru.readthedocs.io/en/latest/reference/errors.html)
+  lists every reason the edge can give.
+pages:
+  - pages/01-welcome.md
+  - pages/02-start-the-shop.md
+  - pages/03-output-from-your-code.md
+  - pages/04-when-a-view-raises.md
+  - pages/05-only-what-needs-attention.md
+  - pages/06-the-dashboard.md
+  - pages/07-finish.md

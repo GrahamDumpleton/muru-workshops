@@ -1,0 +1,66 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: import-once-fork-safely
+title: Import once, fork safely
+version: 0.1.0
+description: See what a fork leaves behind when an application opens a socket and starts a thread at import, as under gunicorn --preload, then watch Muru's import check find both before it forks, fall back or refuse to start, and move the work into a post_fork hook so the workers are forked from a preloaded host again.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/import-once-fork-safely
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, wsgi, preload, fork, python]
+duration: 25m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - write-files
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the application on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have seen what a fork leaves behind and what Muru does about it.
+  A thread started at import does not exist in a forked child, and a
+  socket opened at import is shared by every child. Muru's host
+  records what the import opened before it forks: under the default,
+  `--preload auto`, it says what it found and has each worker import
+  the application itself; under `--preload true` it refuses to start.
+  Moving the work into a `post_fork` hook let the workers be forked
+  from a preloaded host again, each with a socket and a thread of its
+  own.
+
+  Next is **Processes, threads and the GIL**, which looks at how many
+  workers and threads an application should have, and why.
+
+  Muru's [preload and fork safety](https://muru.readthedocs.io/en/latest/explanation/preload.html)
+  page covers the check, the three modes and every hook.
+pages:
+  - pages/01-welcome.md
+  - pages/02-what-a-fork-leaves-behind.md
+  - pages/03-the-import-check.md
+  - pages/04-refusing-to-start.md
+  - pages/05-a-post-fork-hook.md
+  - pages/06-finish.md
