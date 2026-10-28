@@ -148,11 +148,11 @@ bump VERSION:
     git add reference/jupyterlab-workshop
 
 # reference/muru is the documentation and source of the release the
-# workshops teach. Its tags are v0.1.0-alpha.9 where PyPI says
-# 0.1.0a9, so the tag is given as it is in the repository. Every
+# workshops teach. Its tags are v0.1.0-alpha.10 where PyPI says
+# 0.1.0a10, so the tag is given as it is in the repository. Every
 # workshop pins muru and muructl in its own requirements.txt, which
 # this does not touch.
-# Move the Muru reference checkout to a release tag, such as v0.1.0-alpha.10.
+# Move the Muru reference checkout to a release tag, such as v0.1.0-alpha.11.
 bump-muru TAG:
     git -C reference/muru fetch --tags
     git -C reference/muru checkout "{{TAG}}"

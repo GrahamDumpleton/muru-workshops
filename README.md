@@ -34,7 +34,7 @@ all.
 Where Muru fits among Python web servers, what it does while you
 develop, and how its daemon deploys releases without downtime, compared
 throughout with Apache and mod_wsgi, gunicorn, uvicorn and Granian.
-Each workshop installs Muru 0.1.0a9 into an environment of its own and
+Each workshop installs Muru 0.1.0a10 into an environment of its own and
 runs it in two terminals, with documents and the application shown
 above them. Workshops 7 to 10 run the daemon, which keeps its state
 in the workspace and its sockets in a short directory under `/tmp`.
@@ -169,6 +169,6 @@ order the Justfile gives.
 `just bump <version>` moves to a new release of the extension,
 refreshes the files the scaffold wrote and moves its reference
 checkout. `just bump-muru <tag>` moves `reference/muru` to a Muru
-release tag, such as `v0.1.0-alpha.10`; then update `muru` and `muructl`
+release tag, such as `v0.1.0-alpha.11`; then update `muru` and `muructl`
 in every `workshops/*/requirements.txt` to the same release and run
 `just test-all`.

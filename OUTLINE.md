@@ -39,8 +39,8 @@ Everything the workshops say about Muru comes from its documentation,
 its source and the installed release, never from memory.
 
 - `reference/muru` is a git submodule of the Muru repository at the
-  tag of the release the workshops teach, `v0.1.0-alpha.9` (published
-  on PyPI as 0.1.0a9). The user documentation under `docs/tutorials`,
+  tag of the release the workshops teach, `v0.1.0-alpha.10` (published
+  on PyPI as 0.1.0a10). The user documentation under `docs/tutorials`,
   `docs/explanation` and `docs/howto` is authoritative for released
   behaviour. `CHANGELOG.md` says which release added what, which is how
   to tell whether a feature is released. The design specification
@@ -86,10 +86,14 @@ workshop 1:
   and the worker carries on. A worker that exits mid-request gives 502
   with `reason=worker_crashed` and a short plain text body naming the
   reason and the request id, and the host forks a replacement. The
-  edge does not retry (no retry code exists in 0.1.0a8 or 0.1.0a9, although
-  section 4.8 of the design specification plans retries of idempotent
-  requests), so workshop 1 crashes a worker with a POST, which stays a
-  502 when retries land.
+  edge did not retry in 0.1.0a8 or 0.1.0a9. From 0.1.0a10 it sends a
+  request to another worker when no worker has read it (the worker
+  could not be connected to, or closed before the request head reached
+  it), marked `retried` in the access log, and never sends again a
+  request a worker has read, whatever its method. Workshop 1's POST to
+  `/crash` is read before the worker exits, so it is still 502
+  `worker_crashed` (checked on 0.1.0a10), and the quiz's explanation
+  says when the edge does retry.
 
 - Responses carry `server: muru` and `x-request-id`, and the environ
   carries `muru.request_id`. There is no `SERVER_SOFTWARE`.
@@ -300,7 +304,7 @@ Which process talks to clients, which runs your code, and what does
 new code take, under the servers you know and under Muru?
 
 The welcome page creates the environment (`muru` and `muructl`
-0.1.0a9) and runs `muructl --version`. Page 2 opens
+0.1.0a10) and runs `muructl --version`. Page 2 opens
 `docs/serving-python.md` in the viewer area: Apache with mod_wsgi
 (embedded and daemon mode), nginx in front of gunicorn (arbiter,
 workers that accept on the shared socket, `sync` and `gthread`,
@@ -339,7 +343,7 @@ show the development run as a release table, and stops the server.
   `show_processes.py`, `docs/serving-python.md`,
   `docs/muru-processes.md` and `docs/releases.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`; `curl` and `ps`.
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`; `curl` and `ps`.
 
 - Source: `docs/explanation/architecture.md`,
   `docs/tutorials/first-wsgi-app.md`, `docs/howto/daemon.md`, and the
@@ -379,7 +383,7 @@ one), sends five rounds, describes what it shows, and stops the shop.
 - Format: two terminals and files, viewer area. Ships `shop.py`,
   `send_requests.py` and `docs/where-output-goes.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`, `flask==3.1.3`;
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`, `flask==3.1.3`;
   `curl`. Variables `app_port` (8080) and `dashboard_port` (8081).
 
 - Source: `docs/tutorials/first-wsgi-app.md`, `docs/howto/logging.md`,
@@ -421,7 +425,7 @@ and is self-signed on every machine.
 - Format: two terminals and files, viewer area. Ships `greeting.py`,
   `watch.py` and `docs/reloading.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`; `curl`. Variables
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`; `curl`. Variables
   `app_port` (8080) and `https_port` (8443).
 
 - Source: `docs/tutorials/first-wsgi-app.md`, `docs/howto/https.md`,
@@ -463,7 +467,7 @@ and stops the server.
   `catalog.py`, `hooks.py`, `fork_demo.py` and
   `docs/preload-and-fork.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`; `curl`.
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`; `curl`.
 
 - Source: `docs/explanation/preload.md`, `muructl run --help`,
   gunicorn's `preload_app` setting, uvicorn's `_subprocess.py`.
@@ -497,7 +501,7 @@ Binder has no free-threaded interpreter.
 - Format: two terminals and files, viewer area. Ships `work.py`,
   `load.py` and `docs/processes-and-threads.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`; `curl`.
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`; `curl`.
 
 - Source: `docs/explanation/process-models.md`, gunicorn's design
   documentation, Granian's README, mod_wsgi's `WSGIDaemonProcess`
@@ -542,7 +546,7 @@ closes it with `by=edge code=1001` at once.
   `docs/two-interfaces.md`. Variables `app_port` (8080) and
   `dashboard_port` (8081).
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`, `flask==3.1.3`,
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`, `flask==3.1.3`,
   `fastapi==0.162.0`, `websockets==17.3`; `curl`.
 
 - Source: `docs/howto/mounts.md`, `docs/howto/starlette-and-fastapi.md`,
@@ -579,7 +583,7 @@ on serving), and shuts the daemon down.
   `releases/v2`, `traffic.py`, `show_processes.py` and
   `docs/deploying.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`; `curl`, `ps`.
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`; `curl`, `ps`.
   Variables `app_port` (8080) and `muru_run_dir` (`/tmp/muru-deploy`).
 
 - Source: `docs/howto/daemon.md`, gunicorn's signals documentation.
@@ -609,7 +613,7 @@ down.
 - Format: two terminals and files, viewer area. Ships `releases/v1`
   to `v3`, `routes.toml`, `traffic.py` and `docs/canary.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`; `curl`. Variables
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`; `curl`. Variables
   `app_port` (8080) and `muru_run_dir` (`/tmp/muru-canary`).
 
 - Source: `docs/howto/rollouts.md`, `docs/howto/traffic.md`.
@@ -643,7 +647,7 @@ the daemon down.
   application, static files with a `.gz` variant, a report, two error
   pages), `site.toml.in` and `docs/nginx-and-the-edge.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`; `curl`, `sed`.
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`; `curl`, `sed`.
   Variables `app_port` (8080) and `muru_run_dir` (`/tmp/muru-edge`).
 
 - Source: `docs/howto/static-files.md`, `compression.md`,
@@ -674,7 +678,7 @@ another server.
   `routes.toml`, `traffic.py`, `show_processes.py` and
   `docs/cutting-over.md`.
 
-- Requires: `muru==0.1.0a9`, `muructl==0.1.0a9`, `gunicorn==26.2.0`;
+- Requires: `muru==0.1.0a10`, `muructl==0.1.0a10`, `gunicorn==26.2.0`;
   `curl`, `ps`. Variables `app_port` (8080) and `muru_run_dir`
   (`/tmp/muru-server`).
 
@@ -744,11 +748,11 @@ each waits until its features are released.
 - **Moving an existing application to Muru**: from gunicorn, uvicorn,
   Granian and mod_wsgi, with managed server releases and a mapping of
   settings. Muru's own migration guides are still to be written
-  (none in 0.1.0a9).
+  (none in 0.1.0a10).
 
 - **WSGI, ASGI and gRPC together**: mounts, WebSockets, gRPC mounts, and
   handing requests across between WSGI and ASGI once that is released
-  (not in 0.1.0a9).
+  (not in 0.1.0a10).
 
 ## Decisions that cut across the workshops
 
@@ -759,7 +763,7 @@ and the hosts have it.
 
 **Muru is installed per workshop, pinned.** Each workshop declares an
 `environment` whose `requirements.txt` pins `muru` and `muructl` to the
-release in `reference/muru`, written the PyPI way (`0.1.0a9`). An exact
+release in `reference/muru`, written the PyPI way (`0.1.0a10`). An exact
 pin needs no `--pre`. The extension puts the environment first on
 `PATH` in the terminals, so `muructl` finds the environment's Python
 with no activation step. No workshop step uses uv or `uv tool install`:
@@ -926,7 +930,9 @@ Workshops are written in collection order. Workshop 1 was written
 first, on its own, to settle the format before the rest. Workshops 2
 to 5 followed together, against 0.1.0a8, and then 6 to 10. All ten were
 self-tested again against 0.1.0a9 when it was pinned, and workshop 6
-was rewritten for its WebSocket logging and dashboard.
+was rewritten for its WebSocket logging and dashboard. All ten passed
+their self-tests again on 0.1.0a10, which needed no change to any
+workshop beyond the pin and workshop 1's note on retries.
 
 ### Meet Muru
 

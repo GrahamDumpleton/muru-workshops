@@ -35,7 +35,7 @@ options:
   - { text: "Nothing: the connection is closed with no response", explanation: "The connection is the edge's, and the edge is still running, so it can still answer." }
   - { text: "A 500 from the host, which saw its worker die", explanation: "The host forks a replacement, but it never handles requests." }
   - { text: "A 502 from the edge, saying the worker crashed", correct: true }
-  - { text: "A 200, because the edge sends the request to another worker", explanation: "A POST may have changed something before the worker died, and sending it to another worker could do that twice. The edge answers for the worker instead." }
+  - { text: "A 200, because the edge sends the request to another worker", explanation: "The edge sends a request to another worker only when no worker has read it yet. This one was read, and a POST may have changed something before the worker died, so sending it again could do that twice. The edge answers for the worker instead." }
 explanation: "The edge answers 502 Bad Gateway with the reason `worker_crashed`, and the host forks a new worker to take the dead one's place."
 ```
 
