@@ -1,0 +1,13 @@
+[project]
+name = "shop"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["flask"]
+
+# How muructl run serves the shop.
+[tool.muru]
+entrypoint = "shop:create_app"
+processes = 2
+
+[tool.muru.env]
+SHOP_DATABASE = "shop.db"

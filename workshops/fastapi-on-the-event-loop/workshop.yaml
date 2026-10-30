@@ -1,0 +1,64 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: fastapi-on-the-event-loop
+title: FastAPI and Starlette on the event loop
+version: 0.1.0
+description: Serve a FastAPI application under muructl run and find out what runs where on a worker's event loop, from the lifespan that runs once in each worker to async def, plain def and asyncio.to_thread path operations under load, then block the loop and watch the loop stall timeout replace the worker, compared with uvicorn and gunicorn.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/fastapi-on-the-event-loop
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, fastapi, starlette, asgi, asyncio, python]
+duration: 30m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - write-files
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the application on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have served a FastAPI application on Muru's event loops. The
+  lifespan ran once in each worker, and a failing one stopped the run.
+  `async def` ran on the loop, plain `def` on AnyIO's threads, and
+  `asyncio.to_thread` on Muru's sync threads, which `--sync-threads`
+  sizes. A blocking call on the loop held every request in the worker
+  until the loop stall timeout replaced it.
+
+  Next is **Hooks from load to exit**.
+
+  Muru's [ASGI guide](https://muru.readthedocs.io/en/latest/howto/asgi.html),
+  [Starlette and FastAPI guide](https://muru.readthedocs.io/en/latest/howto/starlette-and-fastapi.html)
+  and [timeouts guide](https://muru.readthedocs.io/en/latest/howto/timeouts.html)
+  cover the rest.
+pages:
+  - pages/01-welcome.md
+  - pages/02-once-in-each-worker.md
+  - pages/03-where-each-kind-runs.md
+  - pages/04-many-at-once.md
+  - pages/05-blocking-the-loop.md
+  - pages/06-finish.md

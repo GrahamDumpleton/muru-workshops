@@ -5,7 +5,7 @@ requires: [verify:dashboard-up, verify:shop-stopped]
 
 # The dashboard
 
-The last startup line gave the dashboard's address. It is served on
+A startup line gave the dashboard's address. It is served on
 loopback only, needs no sign-in while you develop, and is read-only.
 Open it.
 

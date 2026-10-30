@@ -1,0 +1,65 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: settings-in-the-project
+title: Keep the run settings with the project
+version: 0.1.0
+description: Move a long muructl run command line into the project's [tool.muru] table, see which settings belong there and which stay on the command line, what a flag or a misspelt key does, and what --print-config makes of it all for the daemon, compared with where gunicorn, uvicorn, Granian and mod_wsgi keep their settings.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/settings-in-the-project
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, configuration, pyproject, python]
+duration: 20m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - write-files
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the project on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have moved a project's server settings from a command line into
+  its `[tool.muru]` table. What the application needs, its processes,
+  threads, hooks, timeouts and environment, travels with it in
+  `pyproject.toml`; how one run is served, its port among them, stays
+  on the command line, where a flag also wins over the table for that
+  run. A misspelt key stops the run with the keys the table takes, and
+  `--print-config` writes what a run amounts to as the daemon's
+  declarative configuration.
+
+  Next is **A Flask project under muructl run**.
+
+  Muru's [first application tutorial](https://muru.readthedocs.io/en/latest/tutorials/first-wsgi-app.html)
+  and its [daemon guide](https://muru.readthedocs.io/en/latest/howto/daemon.html)
+  show where the table goes from here.
+pages:
+  - pages/01-welcome.md
+  - pages/02-a-long-command-line.md
+  - pages/03-into-the-project.md
+  - pages/04-flags-and-mistakes.md
+  - pages/05-what-the-daemon-gets.md
+  - pages/06-finish.md

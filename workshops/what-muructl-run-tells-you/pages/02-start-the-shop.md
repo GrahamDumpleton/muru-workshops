@@ -56,6 +56,10 @@ Read the startup lines from the top:
 - `muru: dashboard on ...` is where the dashboard is, which the last
   page opens.
 
+- `muru: admin socket ...` is where `muructl`'s own commands, such as
+  `muructl status` and `muructl logs --access`, reach this run from
+  another terminal.
+
 ```{verify}
 :id: shop-up
 :label: The shop answers on port {{ app_port }}
@@ -69,7 +73,7 @@ curl -sS --max-time 2 http://127.0.0.1:{{ app_port }}/
 Look at the terminal on the left. "Address already in use" means
 another program has port {{ app_port }}: change `app_port` from the
 gear button in the header of this panel, then start the shop again. If
-the last line says `no dashboard`, the shop is still running, but
+the dashboard line says `no dashboard`, the shop is still running, but
 change `dashboard_port` before the last page. If nothing is printed
 yet, give it a few seconds and click Check.
 ```

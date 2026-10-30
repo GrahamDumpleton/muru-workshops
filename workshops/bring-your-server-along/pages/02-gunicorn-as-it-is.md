@@ -19,7 +19,8 @@ choose which server.
 
 The application is an ordinary WSGI application. Its docstring has the
 gunicorn command it is deployed with today. Each response says which
-server ran it, from `SERVER_SOFTWARE`, which gunicorn sets.
+server ran it, from `SERVER_SOFTWARE`, which every WSGI server sets to
+its own name and version.
 
 ```{file-open}
 :title: Open orders/orders.py

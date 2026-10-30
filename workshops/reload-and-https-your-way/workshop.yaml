@@ -1,0 +1,70 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: reload-and-https-your-way
+title: Reload and HTTPS beyond the defaults
+version: 0.1.0
+description: Make --reload watch a project's templates and data files and ignore the file it writes, watch a request in flight finish on the old release during a reload, then put another name on the development certificate, redirect HTTP to HTTPS, and serve a certificate from a CA of your own, compared with gunicorn's and uvicorn's options.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/reload-and-https-your-way
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, reload, https, tls, python]
+duration: 30m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - write-files
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  MURU_CACHE_DIR: muru-cache
+  CAROOT: muru-cache/no-mkcert
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves HTTP on; change it if that port is taken
+  - name: https_port
+    type: number
+    default: 8443
+    description: Port muructl run serves HTTPS on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have fitted reload and HTTPS to a project. `--reload-include`
+  made templates and data count as source beside the default
+  `**/*.py`, and `--reload-exclude` kept the file the application
+  writes from starting a release with every request. A request in
+  flight finished on the old release. The development certificate took
+  another name with `--host`, `--https-only` redirected HTTP to HTTPS,
+  and `--tls-cert` served a certificate from a CA of your own.
+
+  Next is **When a request hangs**.
+
+  Muru's [HTTPS guide](https://muru.readthedocs.io/en/latest/howto/https.html)
+  covers certificates and ports in more detail.
+pages:
+  - pages/01-welcome.md
+  - pages/02-what-counts-as-a-change.md
+  - pages/03-files-the-project-writes.md
+  - pages/04-a-request-in-flight.md
+  - pages/05-another-name.md
+  - pages/06-a-certificate-of-your-own.md
+  - pages/07-finish.md

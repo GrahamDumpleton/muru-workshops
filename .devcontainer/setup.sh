@@ -53,7 +53,8 @@ cat > "$overrides" <<'JSON'
     "browseOnStart": true,
     "workshopsDirectory": "workshops",
     "collections": [
-      "collections/introduction/collection.json"
+      "collections/introduction/collection.json",
+      "collections/developing/collection.json"
     ],
     "welcome": ".devcontainer/welcome.md",
     "disabledFeatures": [

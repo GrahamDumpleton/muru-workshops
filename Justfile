@@ -17,6 +17,13 @@ introduction_description := "Guided JupyterLab workshops introducing Muru: where
 # skipping any not written yet, so the order lives here and nowhere else.
 introduction := "where-muru-fits what-muructl-run-tells-you reload-and-https-in-development import-once-fork-safely processes-threads-and-the-gil wsgi-and-asgi-together deploying-without-downtime canary-a-release what-nginx-was-for bring-your-server-along"
 
+developing_id := "grahamdumpleton.me/muru/developing"
+developing_title := "Developing with muructl run"
+developing_description := "Guided JupyterLab workshops on developing a Flask, Django or FastAPI project under muructl run: where its settings live, what each framework needs, the hooks around the fork, reload and HTTPS fitted to a real project, what happens when a request hangs, and a request stopped at a breakpoint."
+
+# The Developing with muructl run collection, in the order to take it.
+developing := "settings-in-the-project serving-a-flask-project serving-a-django-project fastapi-on-the-event-loop every-hook-in-order reload-and-https-your-way when-a-request-hangs stopping-at-a-breakpoint"
+
 # List available targets.
 default:
     @just --list
@@ -97,7 +104,7 @@ test-all:
     done
 
 # Write or refresh every collection index and the catalog.
-index: index-introduction catalog
+index: index-introduction index-developing catalog
 
 # The workshop directories are named one by one, in the collection's
 # order, which is how `jupyter workshop index` is told the order to
@@ -120,6 +127,23 @@ index-introduction:
         exit 0
     fi
     uv run jupyter workshop index "${dirs[@]}" --root . --out collections/introduction/collection.json --repo "{{repo}}" --id "{{introduction_id}}" --title "{{introduction_title}}" --description "{{introduction_description}}" --homepage "{{repo}}" --ordered
+
+# Write or refresh collections/developing/collection.json in the collection's order.
+index-developing:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    dirs=()
+    for name in {{developing}}; do
+        if [ -d "workshops/$name" ]; then
+            dirs+=("workshops/$name")
+        fi
+    done
+    if [ ${#dirs[@]} -eq 0 ]; then
+        echo "No developing workshops under workshops/ yet; collections/developing/collection.json is left as it is"
+        exit 0
+    fi
+    mkdir -p collections/developing
+    uv run jupyter workshop index "${dirs[@]}" --root . --out collections/developing/collection.json --repo "{{repo}}" --id "{{developing_id}}" --title "{{developing_title}}" --description "{{developing_description}}" --homepage "{{repo}}" --ordered
 
 # Write or refresh catalog.json from the collection indexes, recorded by relative path.
 catalog:

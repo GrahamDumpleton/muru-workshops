@@ -59,7 +59,10 @@ finish: |
 
   That is the end of **Meet Muru**. You have seen where Muru fits among
   Python web servers, what it does while you develop, and how its
-  daemon deploys releases.
+  daemon deploys releases. The next part of the course, **Developing
+  with muructl run**, takes a Flask, Django or FastAPI project through
+  development in depth, starting with **Keep the run settings with the
+  project**.
 
   To use Muru for your own applications, install the command with
   `uv tool install muructl` and add the runtime library to each

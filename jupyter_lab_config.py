@@ -15,4 +15,5 @@
 c.LabApp.default_url = (
     "/lab?catalog=catalog.json"
     "&collection=collections/introduction/collection.json"
+    "&collection=collections/developing/collection.json"
 )

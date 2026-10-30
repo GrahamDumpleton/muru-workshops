@@ -1,0 +1,66 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: stopping-at-a-breakpoint
+title: Stop a request at a breakpoint
+version: 0.1.0
+description: Put breakpoint() in a request served by muructl run, see the worker wait for a debugger while the timeouts stand aside, attach pdb to it from another terminal, read and change what the request is about to do, let it go on, watch a breakpoint nobody attaches to expire, and open a session in a worker with no breakpoint waiting, compared with what breakpoint() does under flask run, runserver, gunicorn and mod_wsgi.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/stopping-at-a-breakpoint
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, debugging, pdb, python]
+duration: 20m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the shop on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have stopped a request at a breakpoint and attached to it. Under
+  `muructl run` the worker waited for a debugger, with the soft and
+  hard timeouts standing aside, and `muructl debug attach` opened pdb
+  on the request from the other terminal, where you read and changed
+  what it was about to charge before letting it go on. A breakpoint
+  nobody attached to expired and the request carried on, and a session
+  in a worker with no breakpoint waiting ran on a thread of its own,
+  changing that one worker's state.
+
+  That is the end of **Developing with muructl run**. For running Muru
+  as a service, with the daemon, releases and traffic, start with
+  **Deploy without dropping a request** in Meet Muru.
+
+  Muru's [debugging guide](https://muru.readthedocs.io/en/latest/howto/debugging.html)
+  covers attaching from an IDE with `--dap`, and the stacks, profiles
+  and memory of running workers.
+pages:
+  - pages/01-welcome.md
+  - pages/02-a-request-stops.md
+  - pages/03-attach-to-it.md
+  - pages/04-when-nobody-attaches.md
+  - pages/05-a-thread-of-its-own.md
+  - pages/06-finish.md

@@ -1,0 +1,63 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: every-hook-in-order
+title: Hooks from load to exit
+version: 0.1.0
+description: Run a hooks module with all seven of Muru's lifecycle hooks and read from the terminal where and when each one runs, through startup, a reload that replaces the workers, a signal to reopen logs, workers that import the application themselves, and an ASGI application's lifespan, compared with gunicorn's server hooks.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/every-hook-in-order
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, hooks, wsgi, asgi, python]
+duration: 25m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - write-files
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the application on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have watched all seven of Muru's hooks run. `on_load` and
+  `pre_fork` ran once in the host, `post_fork` and `on_ready` in each
+  worker as it started, `on_drain` and `on_exit` as it stopped, and
+  `on_reopen_logs` in the one worker that got the signal. A reload ran
+  the new workers' hooks before the old ones', without imports in the
+  host each worker ran the host's two hooks itself, and an ASGI
+  lifespan ran inside the worker's.
+
+  Next is **Reload and HTTPS beyond the defaults**.
+
+  Muru's [preload and fork safety explanation](https://muru.readthedocs.io/en/latest/explanation/preload.html)
+  describes the hooks and the import check together.
+pages:
+  - pages/01-welcome.md
+  - pages/02-starting-up.md
+  - pages/03-through-a-reload.md
+  - pages/04-reopening-logs.md
+  - pages/05-other-orders.md
+  - pages/06-finish.md

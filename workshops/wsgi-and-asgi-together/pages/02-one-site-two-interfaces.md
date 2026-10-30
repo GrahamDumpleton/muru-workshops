@@ -59,7 +59,7 @@ two workers, each holding both applications from the same preload.
 The serving line says what each worker has for them: `2 workers of 4
 threads` for Flask, `and an event loop of concurrency 1000` for
 FastAPI. The line after it says where the mount is, `mount api serves
-/api from api:app`, and the last gives the dashboard's address, which
+/api from api:app`, and the dashboard line gives its address, which
 a later page opens.
 
 ```{verify}
@@ -75,7 +75,7 @@ curl -sS --max-time 2 -o /dev/null -w '%{http_code}\n' http://127.0.0.1:{{ app_p
 Look at the terminal on the left. "Address already in use" means
 another program has port {{ app_port }}: change `app_port` from the
 gear button in the header of this panel, then start the site again. If
-the last line says `no dashboard`, the site is still running, but
+the dashboard line says `no dashboard`, the site is still running, but
 change `dashboard_port` before the dashboard is opened. Importing
 FastAPI takes a moment; if nothing is printed yet, give it a few
 seconds and click Check.

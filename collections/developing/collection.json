@@ -1,0 +1,324 @@
+{
+  "version": 1,
+  "id": "grahamdumpleton.me/muru/developing",
+  "title": "Developing with muructl run",
+  "description": "Guided JupyterLab workshops on developing a Flask, Django or FastAPI project under muructl run: where its settings live, what each framework needs, the hooks around the fork, reload and HTTPS fitted to a real project, what happens when a request hangs, and a request stopped at a breakpoint.",
+  "homepage": "https://github.com/GrahamDumpleton/muru-workshops",
+  "ordered": true,
+  "analytics": {
+    "sink": "https://workshop-analytics.grumpys.work/events",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhOGMzMTk3NTJlMWY0NzZmYmE0ZmJhY2E3ZDI4MzRhNyIsInN1YiI6IndyYXB0dXJlLXdvcmtzaG9wcyIsInNjb3BlIjpbImluZ2VzdCJdLCJsYWJlbHMiOnt9LCJvcmlnaW5zIjpbXSwiaWF0IjoxNzkwNTUxNjc0LCJuYmYiOjE3OTA1NTE2NzQsImV4cCI6MTgyMTU3MTE5OX0.oSkN37BWeenpU6tX13m11WRpjViT1yFgMlzJhkpoz2M"
+  },
+  "workshops": [
+    {
+      "name": "settings-in-the-project",
+      "title": "Keep the run settings with the project",
+      "description": "Move a long muructl run command line into the project's [tool.muru] table, see which settings belong there and which stay on the command line, what a flag or a misspelt key does, and what --print-config makes of it all for the daemon, compared with where gunicorn, uvicorn, Granian and mod_wsgi keep their settings.",
+      "tags": [
+        "muru",
+        "configuration",
+        "pyproject",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "write-files"
+      ],
+      "duration": "20m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/settings-in-the-project",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/settings-in-the-project"
+          }
+        }
+      ]
+    },
+    {
+      "name": "serving-a-flask-project",
+      "title": "A Flask project under muructl run",
+      "description": "Serve a Flask project built by an application factory under muructl run, see why the factory has to be named as one, give each worker a database pool of its own and see what sharing one from the host means, turn on the project's own logging, let Muru answer for a failing view, and hand the static files from Flask to the edge, compared with what flask run, gunicorn and mod_wsgi do with a factory.",
+      "tags": [
+        "muru",
+        "flask",
+        "wsgi",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "write-files",
+        "web-proxy"
+      ],
+      "duration": "25m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/serving-a-flask-project",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/serving-a-flask-project"
+          }
+        }
+      ]
+    },
+    {
+      "name": "serving-a-django-project",
+      "title": "A Django project under muructl run",
+      "description": "Serve a Django project from its wsgi.py under muructl run with --reload, find out why the admin has no styles outside runserver and serve its static files in development, choose between Django's debug page and Muru's error page for a failing view, then serve the same project from asgi.py and see where sync and async views run, compared with runserver, gunicorn, uvicorn and mod_wsgi.",
+      "tags": [
+        "muru",
+        "django",
+        "wsgi",
+        "asgi",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "write-files",
+        "web-proxy"
+      ],
+      "duration": "30m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/serving-a-django-project",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/serving-a-django-project"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fastapi-on-the-event-loop",
+      "title": "FastAPI and Starlette on the event loop",
+      "description": "Serve a FastAPI application under muructl run and find out what runs where on a worker's event loop, from the lifespan that runs once in each worker to async def, plain def and asyncio.to_thread path operations under load, then block the loop and watch the loop stall timeout replace the worker, compared with uvicorn and gunicorn.",
+      "tags": [
+        "muru",
+        "fastapi",
+        "starlette",
+        "asgi",
+        "asyncio",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "write-files"
+      ],
+      "duration": "30m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/fastapi-on-the-event-loop",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/fastapi-on-the-event-loop"
+          }
+        }
+      ]
+    },
+    {
+      "name": "every-hook-in-order",
+      "title": "Hooks from load to exit",
+      "description": "Run a hooks module with all seven of Muru's lifecycle hooks and read from the terminal where and when each one runs, through startup, a reload that replaces the workers, a signal to reopen logs, workers that import the application themselves, and an ASGI application's lifespan, compared with gunicorn's server hooks.",
+      "tags": [
+        "muru",
+        "hooks",
+        "wsgi",
+        "asgi",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "write-files"
+      ],
+      "duration": "25m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/every-hook-in-order",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/every-hook-in-order"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reload-and-https-your-way",
+      "title": "Reload and HTTPS beyond the defaults",
+      "description": "Make --reload watch a project's templates and data files and ignore the file it writes, watch a request in flight finish on the old release during a reload, then put another name on the development certificate, redirect HTTP to HTTPS, and serve a certificate from a CA of your own, compared with gunicorn's and uvicorn's options.",
+      "tags": [
+        "muru",
+        "reload",
+        "https",
+        "tls",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages",
+        "write-files"
+      ],
+      "duration": "30m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/reload-and-https-your-way",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/reload-and-https-your-way"
+          }
+        }
+      ]
+    },
+    {
+      "name": "when-a-request-hangs",
+      "title": "When a request hangs",
+      "description": "Find out what Muru does with a request that never finishes, from the soft timeout that interrupts Python code and says where it was, to the hard timeout that replaces a worker whose code swallows it and the GIL stall timeout that replaces one stuck in C code holding the GIL, and keep the access log to what needs attention, compared with gunicorn, uvicorn and mod_wsgi.",
+      "tags": [
+        "muru",
+        "timeouts",
+        "gil",
+        "logging",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "25m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/when-a-request-hangs",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/when-a-request-hangs"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stopping-at-a-breakpoint",
+      "title": "Stop a request at a breakpoint",
+      "description": "Put breakpoint() in a request served by muructl run, see the worker wait for a debugger while the timeouts stand aside, attach pdb to it from another terminal, read and change what the request is about to do, let it go on, watch a breakpoint nobody attaches to expire, and open a session in a worker with no breakpoint waiting, compared with what breakpoint() does under flask run, runserver, gunicorn and mod_wsgi.",
+      "tags": [
+        "muru",
+        "debugging",
+        "pdb",
+        "python"
+      ],
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "frontends": [],
+      "capabilities": [
+        "terminal",
+        "kernel-exec",
+        "install-packages"
+      ],
+      "duration": "20m",
+      "authors": [
+        "Graham Dumpleton"
+      ],
+      "homepage": "https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/stopping-at-a-breakpoint",
+      "issues": "https://github.com/GrahamDumpleton/muru-workshops/issues",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "source": {
+            "git": "https://github.com/GrahamDumpleton/muru-workshops",
+            "ref": "main",
+            "subdir": "workshops/stopping-at-a-breakpoint"
+          }
+        }
+      ]
+    }
+  ]
+}

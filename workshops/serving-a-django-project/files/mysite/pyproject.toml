@@ -1,0 +1,10 @@
+[project]
+name = "mysite"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["django"]
+
+# How muructl run serves the site.
+[tool.muru]
+entrypoint = "mysite.wsgi:application"
+processes = 2

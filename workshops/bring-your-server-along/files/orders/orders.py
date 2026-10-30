@@ -2,15 +2,15 @@
 
     gunicorn --workers 2 --bind 127.0.0.1:8000 orders:application
 
-Every response says which server ran it, from SERVER_SOFTWARE, which
-gunicorn sets and Muru's workers do not, and which process.
+Every response says which server ran it, from SERVER_SOFTWARE, and
+which process.
 """
 
 import os
 
 
 def application(environ, start_response):
-    server = environ.get("SERVER_SOFTWARE") or "Muru"
+    server = environ["SERVER_SOFTWARE"]
     body = f"Orders. Served by {server}, process {os.getpid()}.\n".encode()
 
     start_response(

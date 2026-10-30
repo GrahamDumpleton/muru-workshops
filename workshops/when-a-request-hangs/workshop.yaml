@@ -1,0 +1,64 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: when-a-request-hangs
+title: When a request hangs
+version: 0.1.0
+description: Find out what Muru does with a request that never finishes, from the soft timeout that interrupts Python code and says where it was, to the hard timeout that replaces a worker whose code swallows it and the GIL stall timeout that replaces one stuck in C code holding the GIL, and keep the access log to what needs attention, compared with gunicorn, uvicorn and mod_wsgi.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/when-a-request-hangs
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, timeouts, gil, logging, python]
+duration: 25m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the service on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have watched Muru deal with requests that never finish. The soft
+  timeout interrupted a request stuck in Python code, answered 504 and
+  said where it was. Code that swallowed its exception ran on until the
+  hard timeout replaced the worker. A request stuck in C code holding
+  the GIL could not be interrupted and froze its whole worker, until
+  the GIL stall timeout, on by default, replaced it, with every
+  thread's stack in the log. The access log was cut down to what needs
+  attention.
+
+  Next is **Stop a request at a breakpoint**.
+
+  Muru's [timeouts guide](https://muru.readthedocs.io/en/latest/howto/timeouts.html)
+  and [logging guide](https://muru.readthedocs.io/en/latest/howto/logging.html)
+  cover every timeout and access log option.
+pages:
+  - pages/01-welcome.md
+  - pages/02-stuck-in-python.md
+  - pages/03-when-the-timeout-is-caught.md
+  - pages/04-stuck-in-c.md
+  - pages/05-what-needs-attention.md
+  - pages/06-finish.md

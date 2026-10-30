@@ -59,7 +59,8 @@ cat > "$settings/overrides.json" <<'JSON'
     "browseOnStart": true,
     "workshopsDirectory": "workshops",
     "collections": [
-      "collections/introduction/collection.json"
+      "collections/introduction/collection.json",
+      "collections/developing/collection.json"
     ],
     "welcome": "binder/welcome.md",
     "trustPolicy": {

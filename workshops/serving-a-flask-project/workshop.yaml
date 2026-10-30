@@ -1,0 +1,68 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: serving-a-flask-project
+title: A Flask project under muructl run
+version: 0.1.0
+description: Serve a Flask project built by an application factory under muructl run, see why the factory has to be named as one, give each worker a database pool of its own and see what sharing one from the host means, turn on the project's own logging, let Muru answer for a failing view, and hand the static files from Flask to the edge, compared with what flask run, gunicorn and mod_wsgi do with a factory.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/serving-a-flask-project
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, flask, wsgi, python]
+duration: 25m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - write-files
+  - web-proxy
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the shop on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have served a Flask project built by an application factory.
+  Named with `factory = true`, the factory runs in each worker after
+  the fork, so the database pool it opens belongs to that worker;
+  `factory_phase = "host"` shares one build from the host, which is
+  only safe for a factory that opens nothing. The project's table set
+  the logging level its `app.logger` needed and, through the
+  environment, the Flask setting that lets Muru answer for a failing
+  view. The project's static entry handed its stylesheet from Flask's
+  workers to the edge.
+
+  Next is **A Django project under muructl run**.
+
+  Muru's [Flask and Django guide](https://muru.readthedocs.io/en/latest/howto/flask-and-django.html)
+  and its [logging guide](https://muru.readthedocs.io/en/latest/howto/logging.html)
+  cover the rest, and its [static files guide](https://muru.readthedocs.io/en/latest/howto/static-files.html)
+  the entry's cache, index and fallback settings.
+pages:
+  - pages/01-welcome.md
+  - pages/02-name-the-factory.md
+  - pages/03-a-pool-per-worker.md
+  - pages/04-logs-and-errors.md
+  - pages/05-static-files.md
+  - pages/06-finish.md

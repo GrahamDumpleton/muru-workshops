@@ -19,27 +19,20 @@ place of each part of it.
 The shop's whole configuration under Muru is one file. Read its
 comments: the application and its release settings, the error pages,
 the virtual host, and two routes, one to the static files and one to
-the application.
+the application. Every path in it is relative to the file, so the
+site's directories are named as they lie beside it, except the
+release's own error pages, which lie under its source.
 
 ```{file-open}
-:title: Open site.toml.in
-:path: site.toml.in
+:title: Open site.toml
+:path: site.toml
 :area: viewer
 ```
 
-The daemon needs absolute paths to the site's directories, which
-depend on where your workspace is. Fill them in, writing `site.toml`.
-
-```{execute}
-:id: make-config
-:session: client
-:wait: prompt
-sed "s|@SITE@|$PWD/site|g" site.toml.in > site.toml && grep static site.toml
-```
-
-Start the daemon, then apply the file. `muructl apply` creates the
-application and deploys its release, then creates the host and the
-routes.
+Start the daemon, then apply the file, by its full path so the
+daemon resolves the paths in it from where it is. `muructl apply`
+creates the application and deploys its release, then creates the
+host and the routes.
 
 ```{execute}
 :id: start-daemon
@@ -52,7 +45,7 @@ muructl daemon start --listen 127.0.0.1:{{ app_port }}
 :id: apply-site
 :session: client
 :wait: prompt
-muructl apply -f site.toml
+muructl apply -f "$PWD/site.toml"
 ```
 
 ```{verify}
@@ -67,6 +60,6 @@ curl -sS --max-time 2 -o /dev/null -w '%{http_code}\n' http://127.0.0.1:{{ app_p
 :title: If the check fails
 If `muructl daemon start` said the address was in use, change
 `app_port` from the gear button in the header of this panel, start it
-again and apply the file. If `muructl apply` reported errors, check
-that `site.toml` was written by the action before it.
+again and apply the file. If `muructl apply` reported errors, read
+them: each names the line of `site.toml` it could not take.
 ```

@@ -1,0 +1,68 @@
+apiVersion: jupyterlab-workshop/v1alpha1
+name: serving-a-django-project
+title: A Django project under muructl run
+version: 0.1.0
+description: Serve a Django project from its wsgi.py under muructl run with --reload, find out why the admin has no styles outside runserver and serve its static files in development, choose between Django's debug page and Muru's error page for a failing view, then serve the same project from asgi.py and see where sync and async views run, compared with runserver, gunicorn, uvicorn and mod_wsgi.
+authors: [Graham Dumpleton]
+homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/serving-a-django-project
+issues: https://github.com/GrahamDumpleton/muru-workshops/issues
+tags: [muru, django, wsgi, asgi, python]
+duration: 30m
+platforms: [linux, macos]
+capabilities:
+  - terminal
+  - kernel-exec
+  - install-packages
+  - write-files
+  - web-proxy
+requires:
+  tools:
+    - { name: curl }
+env:
+  PAGER: cat
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+environment:
+  requirements: requirements.txt
+variables:
+  - name: app_port
+    type: number
+    default: 8080
+    description: Port muructl run serves the site on; change it if that port is taken
+instructions: { side: right, width: 0.3 }
+layout: tour
+layouts:
+  tour:
+    main:
+      areas:
+        - { name: viewer, tabs: [] }
+        - size: 0.4
+          split: columns
+          areas:
+            - { tabs: ["terminal:server"] }
+            - { tabs: ["terminal:client"] }
+gating: soft
+finish: |
+  You have served a Django project under `muructl run`. Its `wsgi.py`
+  needed nothing added, and the host imported it once, settings and
+  models, before forking the workers. Outside `runserver` nothing
+  serves the static files until the project adds
+  `staticfiles_urlpatterns()` for development, and a static entry in
+  the project has the edge serve `STATIC_ROOT` in production.
+  `DEBUG_PROPAGATE_EXCEPTIONS`
+  chooses Muru's error page over Django's debug page. From `asgi.py`,
+  async views ran on the worker's event loop and sync views on a thread
+  Django gave them.
+
+  Next is **FastAPI and Starlette on the event loop**.
+
+  Muru's [Flask and Django guide](https://muru.readthedocs.io/en/latest/howto/flask-and-django.html)
+  and [static files guide](https://muru.readthedocs.io/en/latest/howto/static-files.html)
+  cover the rest.
+pages:
+  - pages/01-welcome.md
+  - pages/02-serve-wsgi-py.md
+  - pages/03-the-admin-has-no-styles.md
+  - pages/04-when-a-view-raises.md
+  - pages/05-the-same-project-over-asgi.md
+  - pages/06-finish.md

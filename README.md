@@ -34,7 +34,7 @@ all.
 Where Muru fits among Python web servers, what it does while you
 develop, and how its daemon deploys releases without downtime, compared
 throughout with Apache and mod_wsgi, gunicorn, uvicorn and Granian.
-Each workshop installs Muru 0.1.0a10 into an environment of its own and
+Each workshop installs Muru 0.1.0a11 into an environment of its own and
 runs it in two terminals, with documents and the application shown
 above them. Workshops 7 to 10 run the daemon, which keeps its state
 in the workspace and its sockets in a short directory under `/tmp`.
@@ -104,6 +104,61 @@ in the workspace and its sockets in a short directory under `/tmp`.
     beside it and given the traffic by a canary, and an instant
     rollback to gunicorn.
 
+### Developing with muructl run
+
+A Flask, Django or FastAPI project taken through development under
+`muructl run` in depth: where its settings live, what each framework
+needs, the hooks around the fork, reload and HTTPS fitted to a real
+project, and what happens when a request hangs. Each workshop installs
+Muru 0.1.0a11, and the framework it teaches, into an environment of
+its own, and names the Meet Muru workshop it builds on. Workshops 2 to
+4 can be taken in any order, or only the one for your framework.
+
+1. **Keep the run settings with the project** (`settings-in-the-project`,
+   20 minutes). A long `muructl run` command line moved into the
+   project's `[tool.muru]` table, what stays on the command line, a
+   flag that wins for one run, a misspelt key, and what
+   `--print-config` writes for the daemon.
+
+2. **A Flask project under muructl run** (`serving-a-flask-project`, 25
+   minutes). An application factory named as one, a database pool per
+   worker and the risk of sharing one from the host, `app.logger` at
+   `INFO` from the table, Muru's error page through
+   `FLASK_PROPAGATE_EXCEPTIONS`, and Flask's static files.
+
+3. **A Django project under muructl run** (`serving-a-django-project`,
+   30 minutes). `wsgi.py` as `startproject` wrote it, the admin's
+   missing styles outside `runserver` and `staticfiles_urlpatterns()`,
+   Django's debug page beside Muru's error page, and the same project
+   from `asgi.py`.
+
+4. **FastAPI and Starlette on the event loop**
+   (`fastapi-on-the-event-loop`, 30 minutes). The lifespan once in each
+   worker, where `async def`, plain `def` and `asyncio.to_thread` run
+   and how many of each at once, `--sync-threads`, and a blocking call
+   that the loop stall timeout ends.
+
+5. **Hooks from load to exit** (`every-hook-in-order`, 25 minutes). All
+   seven hooks printing where they run, at startup, through a reload,
+   on `SIGUSR1`, without a preload, and around an ASGI lifespan.
+
+6. **Reload and HTTPS beyond the defaults**
+   (`reload-and-https-your-way`, 30 minutes). Templates and data
+   counted as source, a file the project writes left out, a request in
+   flight during a reload, another name on the development
+   certificate, `--https-only`, and a certificate from a local CA.
+
+7. **When a request hangs** (`when-a-request-hangs`, 25 minutes). The
+   soft timeout and where it says the request was, the hard timeout
+   for code that swallows it, the GIL stall timeout for a worker stuck
+   in C, and an access log of only what needs attention.
+
+8. **Stop a request at a breakpoint** (`stopping-at-a-breakpoint`, 20
+   minutes). `breakpoint()` in a request under `muructl run`, the
+   worker waiting for a debugger with the timeouts standing aside,
+   `muructl debug attach` from the other terminal, a breakpoint nobody
+   attaches to, and a session in a worker with no breakpoint waiting.
+
 ## Run locally
 
 With [uv](https://docs.astral.sh/uv/) installed, from a checkout:
@@ -134,6 +189,7 @@ or to one collection from the workshop browser's Collections dialog:
 ```
 https://raw.githubusercontent.com/GrahamDumpleton/muru-workshops/main/catalog.json
 https://raw.githubusercontent.com/GrahamDumpleton/muru-workshops/main/collections/introduction/collection.json
+https://raw.githubusercontent.com/GrahamDumpleton/muru-workshops/main/collections/developing/collection.json
 ```
 
 ## What is in the repository
