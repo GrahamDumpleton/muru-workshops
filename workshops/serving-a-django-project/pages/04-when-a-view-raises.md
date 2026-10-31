@@ -40,8 +40,7 @@ DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ```
 
-`--reload` started a new release with the setting. Load `/stock`
-again.
+The run started a new release with the setting. Load `/stock` again.
 
 ```{url-open}
 :title: Load /stock again

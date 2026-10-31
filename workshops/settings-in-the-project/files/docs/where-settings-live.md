@@ -39,32 +39,51 @@ takes them on its command line instead.
 
 ## Muru
 
-A project carries its settings in a `[tool.muru]` table in its
-`pyproject.toml`, or with the same keys at the top level of a
-`muru.toml`. `muructl run` reads the table from the project directory,
-so a project run with no arguments is served the way the table says.
+A project carries its settings in its `pyproject.toml`, in two tables,
+or with the same keys in a `muru.toml` (`[tool.muru]` becoming the top
+level and `[tool.muru.run]` a `[run]` table). `muructl run` reads them
+from the project directory, so a project run with no arguments is
+served the way they say.
 
 ```mermaid
 flowchart LR
-    T["[tool.muru] in pyproject.toml<br/>what the application needs"] --> R[muructl run]
-    F["command line<br/>how this run is served"] --> R
+    T["[tool.muru]<br/>what the application is"] --> R[muructl run]
+    S["[tool.muru.run]<br/>how a checkout is served"] --> R
+    L["muru.local.toml<br/>how this machine serves it"] --> R
+    F["command line<br/>this one run"] --> R
     T --> D[muructl deploy<br/>a release for the daemon]
     R -->|--print-config| C[the declarative<br/>configuration]
 ```
 
-The table holds what the application needs wherever it runs: its
+`[tool.muru]` holds what the application is, wherever it runs: its
 entrypoint, its worker processes and threads, its hooks module, its
 timeouts, its environment variables, its mounts and worker groups.
-Each key is checked, and a key the table does not know stops the run
-with a list of the keys it does.
 
-How one particular run is served stays on the command line: the port
-and address, `--reload`, HTTPS, the access log and the dashboard. A
-flag given for a setting the table also has wins for that run.
+`[tool.muru.run]` holds how a checkout of the project is served while
+someone works on it: the port, HTTPS and its certificate, extra host
+names, whether the run reloads and what counts as a change, the access
+log, the dashboard and compression. Each is a flag of `muructl run`,
+named in snake case; `--reload-include '**/*.html'` is `reload_include
+= ["**/*.html"]`. The daemon ignores this table: `muructl deploy` takes
+the application and nothing of how a laptop served it.
 
-The table is not only for development. The daemon reads the same table
-when a project directory is deployed to it, so the settings that
-served the project on your laptop go with it into its releases.
-`muructl run --print-config` writes what a run amounts to as the
-daemon's declarative configuration, a step towards running the project
-as a service.
+`muru.local.toml`, beside `pyproject.toml`, holds a `[run]` table with
+the same keys for one machine alone: the port that is free on this
+laptop, the dashboard turned off. It is never committed, and the run
+warns while the project's `.gitignore` does not name it.
+
+A flag wins over the local file, the local file over the project's
+table, and the table over the defaults; lists such as `hosts` and the
+reload patterns add across the layers, and a boolean a file turns on
+has a flag to turn it off for one run (`--no-reload`, `--no-https`).
+Every key is checked, and a key a table does not know stops the run
+with a list of the keys it does. `--bind` and `--allow-public`, which
+serve beyond loopback, have no key and are typed each time.
+
+The application's table is not only for development. The daemon reads
+`[tool.muru]` when a project directory is deployed to it, so the
+settings that describe the application on your laptop go with it into
+its releases. `muructl run --print-config` writes what a run amounts to
+as the daemon's declarative configuration, the listeners the run
+resolved and the release from `[tool.muru]`, a step towards running
+the project as a service.

@@ -80,7 +80,7 @@ Muru is not installed in this project's environment. To try something
 against the release the workshops teach, make a scratch environment
 outside the repository and install the pinned versions into it, for
 example `uv venv /tmp/m && uv pip install --python /tmp/m/bin/python
-muru==0.1.0a11 muructl==0.1.0a11`, then run `muructl` from it with
+muru==0.1.0a12 muructl==0.1.0a12`, then run `muructl` from it with
 `VIRTUAL_ENV` set. Use loopback ports that nothing else uses, and stop
 every server you start by its own process id, never with a pattern
 that could match the user's own processes. Check behaviour against the
@@ -111,7 +111,7 @@ servers and run terminals, which JupyterLite cannot.
 
 - Each workshop declares an `environment` with a `requirements.txt`
   pinning `muru` and `muructl` to the release in `reference/muru`,
-  written the PyPI way (`0.1.0a11`), plus anything else it needs, such
+  written the PyPI way (`0.1.0a12`), plus anything else it needs, such
   as a framework. Nothing taught goes in `pyproject.toml`. The welcome
   page carries `environment-create` as its first step, and the
   environment is then first on `PATH` in the terminals, so `muructl`

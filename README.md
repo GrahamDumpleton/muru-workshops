@@ -34,7 +34,7 @@ all.
 Where Muru fits among Python web servers, what it does while you
 develop, and how its daemon deploys releases without downtime, compared
 throughout with Apache and mod_wsgi, gunicorn, uvicorn and Granian.
-Each workshop installs Muru 0.1.0a11 into an environment of its own and
+Each workshop installs Muru 0.1.0a12 into an environment of its own and
 runs it in two terminals, with documents and the application shown
 above them. Workshops 7 to 10 run the daemon, which keeps its state
 in the workspace and its sockets in a short directory under `/tmp`.
@@ -55,8 +55,9 @@ in the workspace and its sockets in a short directory under `/tmp`.
    report.
 
 3. **Reload, HTTPS and HTTP/2 on your laptop**
-   (`reload-and-https-in-development`, 20 minutes). What `--reload`
-   replaces under gunicorn, uvicorn and Muru, a reload with no request
+   (`reload-and-https-in-development`, 20 minutes). What a reload
+   replaces under gunicorn, uvicorn and Muru, which reloads in
+   development without a flag, a reload with no request
    refused and a syntax error that leaves the previous release serving,
    then HTTPS with a development certificate and HTTP/2 over TLS.
 
@@ -110,15 +111,16 @@ A Flask, Django or FastAPI project taken through development under
 `muructl run` in depth: where its settings live, what each framework
 needs, the hooks around the fork, reload and HTTPS fitted to a real
 project, and what happens when a request hangs. Each workshop installs
-Muru 0.1.0a11, and the framework it teaches, into an environment of
+Muru 0.1.0a12, and the framework it teaches, into an environment of
 its own, and names the Meet Muru workshop it builds on. Workshops 2 to
 4 can be taken in any order, or only the one for your framework.
 
 1. **Keep the run settings with the project** (`settings-in-the-project`,
-   20 minutes). A long `muructl run` command line moved into the
-   project's `[tool.muru]` table, what stays on the command line, a
-   flag that wins for one run, a misspelt key, and what
-   `--print-config` writes for the daemon.
+   25 minutes). A long `muructl run` command line moved into the
+   project: `[tool.muru]` for the application, `[tool.muru.run]` for
+   how a checkout is served, `muru.local.toml` for one machine, a flag
+   that wins for one run, a misspelt key, and what `--print-config`
+   writes for the daemon.
 
 2. **A Flask project under muructl run** (`serving-a-flask-project`, 25
    minutes). An application factory named as one, a database pool per
@@ -146,7 +148,8 @@ its own, and names the Meet Muru workshop it builds on. Workshops 2 to
    (`reload-and-https-your-way`, 30 minutes). Templates and data
    counted as source, a file the project writes left out, a request in
    flight during a reload, another name on the development
-   certificate, `--https-only`, and a certificate from a local CA.
+   certificate, `--https-only`, a certificate from a local CA, and
+   every flag moved into the project's run table.
 
 7. **When a request hangs** (`when-a-request-hangs`, 25 minutes). The
    soft timeout and where it says the request was, the hard timeout
@@ -225,6 +228,6 @@ order the Justfile gives.
 `just bump <version>` moves to a new release of the extension,
 refreshes the files the scaffold wrote and moves its reference
 checkout. `just bump-muru <tag>` moves `reference/muru` to a Muru
-release tag, such as `v0.1.0-alpha.11`; then update `muru` and `muructl`
+release tag, such as `v0.1.0-alpha.12`; then update `muru` and `muructl`
 in every `workshops/*/requirements.txt` to the same release and run
 `just test-all`.

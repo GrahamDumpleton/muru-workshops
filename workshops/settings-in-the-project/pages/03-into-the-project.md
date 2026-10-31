@@ -77,6 +77,7 @@ it for the workers. It also wins over the same variable set in the
 shell, since the table says what the workers get.
 
 The port stayed on the command line. The table holds what the
-application needs wherever it runs; the port, the address, `--reload`,
-HTTPS, the access log and the dashboard are about how one run is
-served, and have no keys in the table.
+application is, wherever it runs; the port, HTTPS, the reload
+patterns, the access log and the dashboard are about how this checkout
+is served, and have no keys in it. They have a table of their own,
+which the next page writes.

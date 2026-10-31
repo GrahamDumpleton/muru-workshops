@@ -10,7 +10,7 @@ and the half-written file often does not import.
 
 ```{quiz}
 :id: broken-reload
-question: You save `greeting.py` with a syntax error. What do requests to the application get under `muructl run --reload`?
+question: You save `greeting.py` with a syntax error. What do requests to the application get under `muructl run`?
 options:
   - { text: "A 500 with the traceback of the syntax error", explanation: "That is what gunicorn's reloader does: the replacement worker serves the traceback until the file is fixed." }
   - { text: "Nothing: the server is down until the next change", explanation: "That is uvicorn: the new server process exits, and nothing serves until you save again." }

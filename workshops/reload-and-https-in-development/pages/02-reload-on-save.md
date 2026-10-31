@@ -5,7 +5,8 @@ requires: [verify:server-up]
 
 # Reload on save
 
-gunicorn, uvicorn and `muructl run` all take `--reload`, and each
+gunicorn and uvicorn reload when you save if you ask with `--reload`;
+a `muructl run` development run does it without being asked. Each
 replaces something different when a file changes. Open the document
 that compares them, and read it through to the table at the end.
 
@@ -28,18 +29,21 @@ Open the application. `GREETING` is what the next page changes.
 :area: viewer
 ```
 
-Start it with `--reload` in the terminal on the left.
+Start it in the terminal on the left, with no flag for reloading.
 
 ```{execute}
 :id: start-reload
 :session: server
 :wait: 3s
-muructl run greeting:application --port {{ app_port }} --reload
+muructl run greeting:application --port {{ app_port }}
 ```
 
-The startup lines are the usual ones, and one more: `muru: watching
-... for changes` names the directory it watches. By default a change
-to any `.py` file under it starts a new release.
+The `development mode` line says the run reloads on change, and the
+last line, `muru: watching ... for changes to **/*.py`, names the
+directory it watches: a change to any `.py` file under it starts a new
+release. `--no-reload` turns that off for one run; a project can turn
+it off for good, or widen what counts as a change, in a table of its
+own, which the Developing with muructl run collection covers.
 
 ```{verify}
 :id: server-up

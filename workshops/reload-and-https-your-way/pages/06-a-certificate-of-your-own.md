@@ -42,8 +42,10 @@ muructl run app:application --chdir menu --port {{ app_port }} --https-port {{ h
 ```
 
 `TLS certificate from certs/server.pem` replaces the self-signed
-certificate line. curl now trusts the
-trustme CA, not Muru's certificate.
+certificate line. curl now trusts the trustme CA, not Muru's
+certificate. The two flags have keys of the same names, `tls_cert` and
+`tls_key`, in the project table the next page writes, read from the
+project's directory the same way.
 
 ```{execute}
 :id: ask-own

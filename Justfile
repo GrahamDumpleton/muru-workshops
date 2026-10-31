@@ -176,7 +176,7 @@ bump VERSION:
 # 0.1.0a10, so the tag is given as it is in the repository. Every
 # workshop pins muru and muructl in its own requirements.txt, which
 # this does not touch.
-# Move the Muru reference checkout to a release tag, such as v0.1.0-alpha.11.
+# Move the Muru reference checkout to a release tag, such as v0.1.0-alpha.12.
 bump-muru TAG:
     git -C reference/muru fetch --tags
     git -C reference/muru checkout "{{TAG}}"

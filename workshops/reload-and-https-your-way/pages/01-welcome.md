@@ -5,18 +5,20 @@ requires: [verify:muructl-installed]
 
 # Welcome
 
-`muructl run --reload` and `--https` work out of the box for a project
-of Python files served on `localhost`. A real project has templates
-and data files, writes files of its own, and is reached under other
-names. This workshop fits both options to such a project, and along
-the way compares them with gunicorn's and uvicorn's.
+A `muructl run` development run reloads on change, and `--https` serves
+HTTPS, out of the box for a project of Python files served on
+`localhost`. A real project has templates and data files, writes files
+of its own, and is reached under other names. This workshop fits both
+to such a project with flags, compares them with gunicorn's and
+uvicorn's along the way, and then moves the flags into the project so
+the command line is `muructl run` again.
 
 The project, a menu of the day in the `menu` directory of your
 workspace, is already there. Nothing you do here needs you to type
 code.
 
 This workshop has an environment of its own with `muru`, `muructl` and
-`trustme` installed, at Muru release 0.1.0a11. Create it first; it
+`trustme` installed, at Muru release 0.1.0a12. Create it first; it
 takes a minute.
 
 ```{environment-create}

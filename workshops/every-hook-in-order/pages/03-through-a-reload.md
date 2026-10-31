@@ -6,19 +6,10 @@ requires: [quiz:new-before-old, verify:reloaded]
 # Through a reload
 
 A reload replaces the whole release: a new host, new workers, and the
-old ones stopped. Stop the application and start it with `--reload`.
-
-```{interrupt}
-:id: stop-greeting
-:session: server
-```
-
-```{execute}
-:id: start-reload
-:session: server
-:wait: 3s
-muructl run greeting:application --hooks hooks --processes 2 --port {{ app_port }} --reload
-```
+old ones stopped. The run you started reloads when a source file
+changes, as its `development mode` line said and its last line,
+`watching ... for changes to **/*.py`, confirms, so nothing has to be
+restarted to see one.
 
 ```{quiz}
 :id: new-before-old

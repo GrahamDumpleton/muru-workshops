@@ -25,8 +25,9 @@ flowchart LR
   `--reload-dir` changes the directories, and `--reload-include` and
   `--reload-exclude` the patterns, which need the `watchfiles` package.
 
-- `muructl run --reload` watches `**/*.py` under the project's
-  directory. `--reload-dir` names other directories to watch,
+- A `muructl run` development run watches `**/*.py` under the
+  project's directory without being asked; `--no-reload` turns that
+  off for a run. `--reload-dir` names other directories to watch,
   `--reload-include` the files that count as source and
   `--reload-exclude` files that never do, each repeatable, with paths
   relative to the watched directory.
@@ -74,3 +75,47 @@ directory and reused while its names stay the same.
 gunicorn takes `--certfile` and `--keyfile` and uvicorn
 `--ssl-certfile` and `--ssl-keyfile`, both for a certificate you make
 yourself; neither makes one, and neither redirects HTTP to HTTPS.
+
+## Into the project
+
+Each flag above says how a checkout of the project is served rather
+than what the application is, and each has a key of the same name,
+in snake case, in a `[tool.muru.run]` table of the project's
+`pyproject.toml` (a `[run]` table at the top level of a `muru.toml`),
+beside the `[tool.muru]` table that names the entrypoint and the
+workers.
+
+```toml
+[tool.muru]
+entrypoint = "app:application"
+
+[tool.muru.run]
+port = 8080
+https_port = 8443
+https_only = true
+hosts = ["menu.test"]
+tls_cert = "certs/server.pem"
+tls_key = "certs/server.key"
+reload_include = ["**/*.html", "**/*.json"]
+reload_exclude = ["data/last-visit.json"]
+```
+
+With the table, `muructl run` on its own is the whole command, and
+everyone who checks the project out serves it the same way. `reload`
+is a key too, `true` by default in development mode and `false` to turn
+reloading off for good. A flag given as well wins over the table for
+that run, and a boolean the table turns on has a flag to turn it off:
+`--no-reload`, `--no-https`, `--no-https-only`. A `muru.local.toml`
+beside `pyproject.toml`, never committed, holds a `[run]` table with the
+same keys for one machine alone, between the flags and the project's
+table.
+
+The daemon ignores the run table: `muructl deploy` takes `[tool.muru]`
+and nothing of how a laptop served the project. `muructl run
+--print-config` shows the split, writing the listeners the table
+resolved to, which belong in the daemon's own file, and the release
+from `[tool.muru]`.
+
+gunicorn's `gunicorn.conf.py` holds every setting, how the server runs
+included, and uvicorn and Granian have no file of their own: a project
+that wants its flags kept writes a script or a `Makefile` target.

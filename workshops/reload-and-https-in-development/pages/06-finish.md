@@ -8,9 +8,11 @@ You have reloaded an application and served it over HTTPS under
 `muructl run`.
 
 - gunicorn's reloader replaces each worker in place, and uvicorn's
-  replaces the server process. `muructl run --reload` starts a new
-  release beside the one serving and switches to it once its workers
-  are ready, so no request was refused.
+  replaces the server process, each when asked with `--reload`. A
+  `muructl run` development run reloads without a flag, and starts a
+  new release beside the one serving and switches to it once its
+  workers are ready, so no request was refused. `--no-reload` turns it
+  off for a run.
 
 - A change that did not import left the previous release serving,
   where gunicorn would serve the traceback and uvicorn nothing at all.

@@ -1,9 +1,10 @@
 # What a reload replaces
 
 Every development server can watch your files and serve the new code
-when you save. What differs is what it replaces to do that, what
-happens to requests while it does, and what you are left with when the
-new code does not even import.
+when you save: gunicorn and uvicorn when asked with `--reload`, a
+`muructl run` development run unless told not to. What differs is what
+it replaces to do that, what happens to requests while it does, and
+what you are left with when the new code does not even import.
 
 ## gunicorn
 
@@ -50,9 +51,11 @@ flowchart LR
     E -.->|once r2 is ready| R2
 ```
 
-With `--reload`, `muructl` watches the files and, on a change, starts
-a new release: a new host imports the new code and forks new workers,
-while the old release goes on serving. Only once the new workers are
+A development run reloads without a flag: `muructl` watches the files
+and, on a change, starts a new release: a new host imports the new
+code and forks new workers, while the old release goes on serving.
+`--no-reload` turns it off for one run, and `reload = false` in the
+project's run table or in `muru.local.toml` for good. Only once the new workers are
 ready does the edge send requests to them. The old release then
 finishes what it was serving and stops. The import check runs as
 usual, so a reload is still a preload, and a request that arrives

@@ -2,7 +2,7 @@ apiVersion: jupyterlab-workshop/v1alpha1
 name: reload-and-https-your-way
 title: Reload and HTTPS beyond the defaults
 version: 0.1.0
-description: Make --reload watch a project's templates and data files and ignore the file it writes, watch a request in flight finish on the old release during a reload, then put another name on the development certificate, redirect HTTP to HTTPS, and serve a certificate from a CA of your own, compared with gunicorn's and uvicorn's options.
+description: Make a development run's reload watch a project's templates and data files and ignore the file it writes, watch a request in flight finish on the old release during a reload, put another name on the development certificate, redirect HTTP to HTTPS, serve a certificate from a CA of your own, then move every flag into the project's run table, compared with gunicorn's and uvicorn's options.
 authors: [Graham Dumpleton]
 homepage: https://github.com/GrahamDumpleton/muru-workshops/tree/main/workshops/reload-and-https-your-way
 issues: https://github.com/GrahamDumpleton/muru-workshops/issues
@@ -54,7 +54,10 @@ finish: |
   writes from starting a release with every request. A request in
   flight finished on the old release. The development certificate took
   another name with `--host`, `--https-only` redirected HTTP to HTTPS,
-  and `--tls-cert` served a certificate from a CA of your own.
+  and `--tls-cert` served a certificate from a CA of your own. Every
+  one of those flags then moved into the project's `[tool.muru.run]`
+  table, so `muructl run` on its own serves the project that way for
+  everyone who checks it out.
 
   Next is **When a request hangs**.
 
@@ -67,4 +70,5 @@ pages:
   - pages/04-a-request-in-flight.md
   - pages/05-another-name.md
   - pages/06-a-certificate-of-your-own.md
-  - pages/07-finish.md
+  - pages/07-into-the-project.md
+  - pages/08-finish.md

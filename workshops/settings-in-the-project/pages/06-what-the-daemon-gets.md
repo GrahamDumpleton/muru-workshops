@@ -53,9 +53,14 @@ It has three parts:
   the soft timeout and the title from the table, beside the other
   timeouts at their defaults.
 
+Nothing of `[tool.muru.run]` or `muru.local.toml` is in it: the
+listener's port came from the `--port` flag here, and would come from
+them otherwise, but how a checkout is served on a laptop is not the
+daemon's business, and `muructl deploy` ignores both.
+
 `muructl apply` takes a file like this one, and `muructl deploy` makes
-the release from the project directory itself, so the table is the
-one place the project's serving settings live.
+the release from the project directory itself, so `[tool.muru]` is the
+one place the application's settings live.
 
 gunicorn has `--print-config` too, which prints the settings its five
 sources add up to. Muru's is a step further on: the file it writes is

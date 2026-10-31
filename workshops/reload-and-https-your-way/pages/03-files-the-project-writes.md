@@ -41,7 +41,7 @@ excluded.
 :id: start-excluded
 :session: server
 :wait: 3s
-muructl run app:application --chdir menu --port {{ app_port }} --reload --reload-include '**/*.html' --reload-include '**/*.json' --reload-exclude 'data/last-visit.json'
+muructl run app:application --chdir menu --port {{ app_port }} --reload-include '**/*.html' --reload-include '**/*.json' --reload-exclude 'data/last-visit.json'
 ```
 
 ```{execute}

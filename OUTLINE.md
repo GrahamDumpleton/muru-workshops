@@ -43,8 +43,8 @@ Everything the workshops say about Muru comes from its documentation,
 its source and the installed release, never from memory.
 
 - `reference/muru` is a git submodule of the Muru repository at the
-  tag of the release the workshops teach, `v0.1.0-alpha.11` (published
-  on PyPI as 0.1.0a11). The user documentation under `docs/tutorials`,
+  tag of the release the workshops teach, `v0.1.0-alpha.12` (published
+  on PyPI as 0.1.0a12). The user documentation under `docs/tutorials`,
   `docs/explanation` and `docs/howto` is authoritative for released
   behaviour. `CHANGELOG.md` says which release added what, which is how
   to tell whether a feature is released. The design specification
@@ -350,7 +350,7 @@ show the development run as a release table, and stops the server.
   `show_processes.py`, `docs/serving-python.md`,
   `docs/muru-processes.md` and `docs/releases.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`; `curl` and `ps`.
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`; `curl` and `ps`.
 
 - Source: `docs/explanation/architecture.md`,
   `docs/tutorials/first-wsgi-app.md`, `docs/howto/daemon.md`, and the
@@ -390,7 +390,7 @@ one), sends five rounds, describes what it shows, and stops the shop.
 - Format: two terminals and files, viewer area. Ships `shop.py`,
   `send_requests.py` and `docs/where-output-goes.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`, `flask==3.1.3`;
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`, `flask==3.1.3`;
   `curl`. Variables `app_port` (8080) and `dashboard_port` (8081).
 
 - Source: `docs/tutorials/first-wsgi-app.md`, `docs/howto/logging.md`,
@@ -403,13 +403,15 @@ one), sends five rounds, describes what it shows, and stops the shop.
 
 How close to production can a development run be?
 
-Page 2 opens `docs/reloading.md` (what gunicorn's, uvicorn's and
-`muructl run`'s `--reload` replace, what requests get meanwhile, and
+Page 2 opens `docs/reloading.md` (what gunicorn's and uvicorn's
+`--reload` and a `muructl run` development run, which reloads without
+a flag, replace, what requests get meanwhile, and
 what a change that fails to import leaves serving, with diagrams and a
 table) and `greeting.py`, whose first line carries `GREETING` and the
 host's process id and whose second the scheme, protocol and
 `muru.tls`. It starts `muructl run greeting:application --port
-{{ app_port }} --reload`. Page 3 starts `watch.py`, which polls ten
+{{ app_port }}`, with no flag, and reads the `watching` line. Page 3
+starts `watch.py`, which polls ten
 times a second and stops a second after the first change, then
 changes `GREETING` with an `editor-replace`: the terminal shows
 `switched to release r2`, `watch.py` shows the new host and `0
@@ -432,7 +434,7 @@ and is self-signed on every machine.
 - Format: two terminals and files, viewer area. Ships `greeting.py`,
   `watch.py` and `docs/reloading.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`; `curl`. Variables
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`; `curl`. Variables
   `app_port` (8080) and `https_port` (8443).
 
 - Source: `docs/tutorials/first-wsgi-app.md`, `docs/howto/https.md`,
@@ -474,7 +476,7 @@ and stops the server.
   `catalog.py`, `hooks.py`, `fork_demo.py` and
   `docs/preload-and-fork.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`; `curl`.
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`; `curl`.
 
 - Source: `docs/explanation/preload.md`, `muructl run --help`,
   gunicorn's `preload_app` setting, uvicorn's `_subprocess.py`.
@@ -508,7 +510,7 @@ Binder has no free-threaded interpreter.
 - Format: two terminals and files, viewer area. Ships `work.py`,
   `load.py` and `docs/processes-and-threads.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`; `curl`.
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`; `curl`.
 
 - Source: `docs/explanation/process-models.md`, gunicorn's design
   documentation, Granian's README, mod_wsgi's `WSGIDaemonProcess`
@@ -553,7 +555,7 @@ closes it with `by=edge code=1001` at once.
   `docs/two-interfaces.md`. Variables `app_port` (8080) and
   `dashboard_port` (8081).
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`, `flask==3.1.3`,
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`, `flask==3.1.3`,
   `fastapi==0.162.0`, `websockets==17.3`; `curl`.
 
 - Source: `docs/howto/mounts.md`, `docs/howto/starlette-and-fastapi.md`,
@@ -590,7 +592,7 @@ on serving), and shuts the daemon down.
   `releases/v2`, `traffic.py`, `show_processes.py` and
   `docs/deploying.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`; `curl`, `ps`.
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`; `curl`, `ps`.
   Variables `app_port` (8080) and `muru_run_dir` (`/tmp/muru-deploy`).
 
 - Source: `docs/howto/daemon.md`, gunicorn's signals documentation.
@@ -620,7 +622,7 @@ down.
 - Format: two terminals and files, viewer area. Ships `releases/v1`
   to `v3`, `routes.toml`, `traffic.py` and `docs/canary.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`; `curl`. Variables
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`; `curl`. Variables
   `app_port` (8080) and `muru_run_dir` (`/tmp/muru-canary`).
 
 - Source: `docs/howto/rollouts.md`, `docs/howto/traffic.md`.
@@ -654,7 +656,7 @@ the daemon down.
   application, static files with a `.gz` variant, a report, two error
   pages), `site.toml` and `docs/nginx-and-the-edge.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`; `curl`, `sed`.
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`; `curl`, `sed`.
   Variables `app_port` (8080) and `muru_run_dir` (`/tmp/muru-edge`).
 
 - Source: `docs/howto/static-files.md`, `compression.md`,
@@ -669,7 +671,7 @@ Can an existing gunicorn deployment move to Muru one step at a time?
 Page 2 opens `docs/cutting-over.md` (a managed server release, a
 native release canaried against it, and when to choose which server)
 and `orders/orders.py`, whose responses name `SERVER_SOFTWARE`
-(`gunicorn/26.2.0`, then `muru/0.1.0a11`), starts the daemon and
+(`gunicorn/26.2.0`, then `muru/0.1.0a12`), starts the daemon and
 deploys `muructl deploy orders orders
 --server gunicorn -- gunicorn --workers 2 --bind '{bind}'
 orders:application`, shows gunicorn answering through the edge, the
@@ -686,7 +688,7 @@ another server.
   `routes.toml`, `traffic.py`, `show_processes.py` and
   `docs/cutting-over.md`.
 
-- Requires: `muru==0.1.0a11`, `muructl==0.1.0a11`, `gunicorn==26.2.0`;
+- Requires: `muru==0.1.0a12`, `muructl==0.1.0a12`, `gunicorn==26.2.0`;
   `curl`, `ps`. Variables `app_port` (8080) and `muru_run_dir`
   (`/tmp/muru-server`).
 
@@ -739,6 +741,58 @@ page helps. The framework workshops (2 to 4) can be taken in any order
 after the first; a learner who uses only one framework takes that one.
 Each edits the project through actions (`file-write` appends,
 `editor-insert`, `editor-replace`), so the learner still types nothing.
+
+### What was checked against 0.1.0a12
+
+Checked on CPython 3.15 in a scratch environment, and self-tested on
+CPython 3.14, macOS, on 2026-10-31, when the pins moved to 0.1.0a12
+(the a11 record below stands for what it does not restate):
+
+- A development run reloads with no flag. Its `development mode` line
+  reads `error pages show tracebacks, nothing is persisted, the run
+  reloads on change and only loopback is served`, and its last line is
+  `muru: watching /abs/project for changes to **/*.py`, after the
+  dashboard and admin socket lines. With `--no-reload`, or `reload =
+  false` in the run table, the line reads `nothing is persisted and
+  only loopback is served` and there is no `watching` line; `--reload`
+  over `reload = false` turns it back on. Every workshop that starts
+  `muructl run` therefore shows the `watching` line, and none of them
+  edits a `.py` file while a run it did not mean to reload is serving
+  (pyproject.toml edits do not count as source).
+
+- `[tool.muru.run]` in the project's `pyproject.toml`: `muructl run
+  notes` with `port`, `access_log = "errors"` and `dashboard = "off"`
+  serves on the table's port with no dashboard line. A `[run]` table
+  in `muru.local.toml` beside it adds `muru: using [run] from
+  notes/muru.local.toml` after the `using [tool.muru]` line, and its
+  `port` wins over the table's; a `--port` flag wins over both. The
+  line `muru: muru.local.toml is not covered by the project's
+  .gitignore; add it, since the file is for this machine alone` is
+  printed only when the project has a `.gitignore` that does not name
+  the file (`gitignore_covers` in `muructl`), so workshop II.1 writes one
+  with `__pycache__/` in the terminal to show it; a shipped dot file
+  would not do, since the contents API cannot write hidden files and
+  publishing leaves them out. A key outside
+  `[run]` in the local file is refused: `notes/muru.local.toml: tool is
+  not a key of muru.local.toml, which holds the [run] table only; the
+  application's settings belong in notes/pyproject.toml`. A misspelt
+  run key lists the sixteen keys the table takes, `port` to
+  `compression`.
+
+- The menu project with `[tool.muru.run]` holding `port`, `https_port`,
+  `https_only = true`, `hosts = ["menu.test"]`, `tls_cert`, `tls_key`,
+  `reload_include` and `reload_exclude`: plain `muructl run menu`
+  serves HTTPS with HTTP redirecting to it, `TLS certificate from
+  certs/server.pem` (relative to the project), and the `watching` line
+  with the patterns and the exception; `https_only` alone implies
+  HTTPS. `--no-https-only` over the table serves both plainly.
+  `--print-config` writes two `[[listener]]` tables, the HTTPS one with
+  `tls = true`, and nothing of the run table; the release is
+  `[app.app.release.r1]`, named after the module.
+
+- Issues 206 and 207 in Muru (one snapshot push per deploy, and the
+  edge keeping its connections across an apply) change nothing the
+  workshops show.
 
 ### What was checked against 0.1.0a11
 
@@ -989,14 +1043,21 @@ notes" muructl run notes:application --chdir notes --processes 2
 --threads 2 --hooks hooks --timeout soft=5s --port {{ app_port }}`.
 Page 3 appends the `[tool.muru]` table with `timeouts` and `env`
 tables and runs `muructl run notes --port {{ app_port }}`. Page 4
-quizzes a flag against the table, runs `--processes 1`, then misspells
-`threads` and puts it right. Page 5 writes `--print-config` to
-`notes-config.toml`, opens it and reads its three parts.
+appends `[tool.muru.run]` with `port` and `access_log = "errors"` and
+runs plain `muructl run notes`, writes `notes/muru.local.toml` with
+`[run] port = {{ other_port }}` and reads the `using [run]` line and
+the warning that a `.gitignore` written in the terminal does not cover
+it, adds the file to `.gitignore`, and quizzes where `reload_include` belongs
+(the run table, not the local file or `[tool.muru]`). Page 5 quizzes
+a flag against the table, runs `--processes 1`, then misspells
+`threads` and puts it right. Page 6 writes `--print-config` to
+`notes-config.toml`, opens it and reads its three parts, with nothing
+of the run table in them.
 
-- Builds on Meet Muru 6. Variable `app_port` (8080). Requires the pins
-  only.
+- Builds on Meet Muru 6. Variables `app_port` (8080) and `other_port`
+  (8090). Requires the pins only.
 
-- Length: 20 minutes.
+- Length: 25 minutes.
 
 ### 2. `serving-a-flask-project`: A Flask project under muructl run
 
@@ -1027,7 +1088,7 @@ Ships `mysite/` (`startproject` and `startapp` output from Django
 `index`, a failing `stock`, an async `ping`, and `ALLOWED_HOSTS =
 ["*"]`) and `docs/django-and-muru.md`. Page 2 runs `python
 mysite/manage.py migrate` and starts `muructl run mysite --port
-{{ app_port }} --reload`. Page 3 opens the unstyled admin, quizzes who
+{{ app_port }}`, which reloads on change as a development run does. Page 3 opens the unstyled admin, quizzes who
 serves `/static/`, adds `staticfiles_urlpatterns()` and reloads it.
 Page 4 shows Django's debug page for `/stock`, adds
 `DEBUG_PROPAGATE_EXCEPTIONS`, and shows Muru's. Page 5 runs `/ping`
@@ -1062,8 +1123,8 @@ When does each hook run, in which process?
 Ships `hooks.py` (all seven, each printing where it ran),
 `greeting.py`, `events.py` (a raw ASGI application with a lifespan),
 `reopen.py` and `docs/hooks.md`. Page 2 starts two workers and
-quizzes where a pool goes. Page 3 restarts with `--reload`, quizzes
-new `on_ready` against old `on_drain`, and changes the greeting. Page
+quizzes where a pool goes. Page 3 quizzes new `on_ready` against old
+`on_drain` under the run's own reload, and changes the greeting. Page
 4 sends `SIGUSR1` to one worker. Page 5 runs `--preload false`, then
 `events.py`, and stops it to show the lifespan's place.
 
@@ -1077,11 +1138,17 @@ How do you fit reload and HTTPS to a real project?
 
 Ships `menu/` (a template, a data file, and an application that writes
 `data/last-visit.json` on each request and has a 3 s `/slow`),
-`slow.py` and `docs/reload-and-https.md`. Pages 2 to 4: the default
-misses a template change; includes for `.py`, `.html` and `.json`;
-every request reloading; the exclude; a dish added; `/slow` in flight
-during a template change. Page 5: `--https --host menu.test` and
-`--https-only`. Page 6: trustme's CA and `--tls-cert`. The manifest
+`slow.py` and `docs/reload-and-https.md`. Pages 2 to 4, under the
+development run's own reload with no flag: the default misses a
+template change; includes for `.html` and `.json`; every request
+reloading; the exclude; a dish added; `/slow` in flight during a
+template change. Page 5: `--https --host menu.test` and `--https-only`.
+Page 6: trustme's CA and `--tls-cert`. Page 7 writes
+`menu/pyproject.toml` with `[tool.muru]` and a `[tool.muru.run]` table
+holding every flag of the workshop as a key, runs plain `muructl run
+menu`, quizzes where a teammate's port belongs (`muru.local.toml`),
+and shows `--print-config` writing two listeners and nothing of the
+table. The manifest
 sets `MURU_CACHE_DIR` and `CAROOT` as Meet Muru 3 does.
 
 - Builds on Meet Muru 3. Variables `app_port` (8080) and `https_port`
@@ -1395,6 +1462,14 @@ factory refused at load, the Flask project's static entry, the
 additive `--reload-include` and project-relative `--tls-cert`,
 requests answered at the hard timeout and at a stall, and the admin
 socket's startup line) and workshop II.8 was written, every workshop
+self-tested again.
+
+On 2026-10-31 the pins moved to 0.1.0a12, the release that carries the
+default reload and the run table (muru#85), which the two issues here
+waited on: six workshops stopped passing or explaining `--reload`, the
+start-up line descriptions gained the `watching` line, workshop II.1
+gained a page on `[tool.muru.run]` and `muru.local.toml`, workshop II.6
+gained a page moving every flag into the run table, and every workshop
 self-tested again.
 
 ### Meet Muru

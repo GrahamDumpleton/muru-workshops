@@ -26,13 +26,15 @@ visit in `data/last-visit.json`.
 :area: viewer
 ```
 
-Start it with `--reload`, as it stands.
+Start it as it stands. A development run reloads on change without a
+flag, and its last start-up line, `muru: watching .../menu for changes
+to **/*.py`, says what counts.
 
 ```{execute}
 :id: start-default
 :session: server
 :wait: 3s
-muructl run app:application --chdir menu --port {{ app_port }} --reload
+muructl run app:application --chdir menu --port {{ app_port }}
 ```
 
 ```{execute}
@@ -74,7 +76,7 @@ counted as source. `--reload-include` adds its patterns to the default
 :id: start-included
 :session: server
 :wait: 3s
-muructl run app:application --chdir menu --port {{ app_port }} --reload --reload-include '**/*.html' --reload-include '**/*.json'
+muructl run app:application --chdir menu --port {{ app_port }} --reload-include '**/*.html' --reload-include '**/*.json'
 ```
 
 The last startup line says what is watched: `muru: watching .../menu

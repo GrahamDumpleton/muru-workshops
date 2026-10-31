@@ -62,8 +62,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns += staticfiles_urlpatterns("/static/")
 ```
 
-In the terminal on the left, `--reload` saw `urls.py` change, started
-a new release with it and switched to it. Load the admin again.
+In the terminal on the left, the run saw `urls.py` change, started a
+new release with it and switched to it. Load the admin again.
 
 ```{url-open}
 :title: Load the admin again

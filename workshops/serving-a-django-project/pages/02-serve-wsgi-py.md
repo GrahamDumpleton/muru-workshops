@@ -42,21 +42,22 @@ three. Run them, as you would for any new checkout of a project.
 python mysite/manage.py migrate
 ```
 
-Now start the site in the terminal on the left, with `--reload`, as
-you would while working on it.
+Now start the site in the terminal on the left. A development run
+reloads when a source file changes, so nothing has to be asked for.
 
 ```{execute}
 :id: start-site
 :session: server
 :wait: 4s
-muructl run mysite --port {{ app_port }} --reload
+muructl run mysite --port {{ app_port }}
 ```
 
 `preloaded mysite.wsgi:application in ...` is the host importing
 `wsgi.py` once, which ran `django.setup()`: the settings, the apps and
 their models. Nothing in that left a connection open, so the two
-workers were forked from it. `watching .../mysite for changes` is
-`--reload`, watching the project's directory.
+workers were forked from it. `watching .../mysite for changes` is the
+run watching the project's directory, as `runserver` does; `--no-reload`
+would turn that off.
 
 The front page is a plain `def` view that lists the products as JSON,
 with the worker and thread that ran it.

@@ -42,8 +42,10 @@ Read what it printed, from the top. The lines starting `muru.host` are
 the host: it imported `hello.py`, found the callable was a WSGI
 application, and started one worker. The lines starting `muru:` are
 `muructl` itself, saying where it serves, with how many workers and
-threads, and what development mode does differently. The last line is
-about the development dashboard, which the next workshop explains.
+threads, and what development mode does differently. The lines after
+that name the development dashboard, which the next workshop explains,
+the run's admin socket, and the directory the run watches so a saved
+change starts a new release, which workshop 3 shows.
 
 ```{verify}
 :id: server-up

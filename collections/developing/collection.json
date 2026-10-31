@@ -13,7 +13,7 @@
     {
       "name": "settings-in-the-project",
       "title": "Keep the run settings with the project",
-      "description": "Move a long muructl run command line into the project's [tool.muru] table, see which settings belong there and which stay on the command line, what a flag or a misspelt key does, and what --print-config makes of it all for the daemon, compared with where gunicorn, uvicorn, Granian and mod_wsgi keep their settings.",
+      "description": "Move a long muructl run command line into the project's [tool.muru] table, put how a checkout is served into [tool.muru.run] and one machine's own port into muru.local.toml, see what a flag or a misspelt key does, and what --print-config makes of it all for the daemon, compared with where gunicorn, uvicorn, Granian and mod_wsgi keep their settings.",
       "tags": [
         "muru",
         "configuration",
@@ -31,7 +31,7 @@
         "install-packages",
         "write-files"
       ],
-      "duration": "20m",
+      "duration": "25m",
       "authors": [
         "Graham Dumpleton"
       ],
@@ -90,7 +90,7 @@
     {
       "name": "serving-a-django-project",
       "title": "A Django project under muructl run",
-      "description": "Serve a Django project from its wsgi.py under muructl run with --reload, find out why the admin has no styles outside runserver and serve its static files in development, choose between Django's debug page and Muru's error page for a failing view, then serve the same project from asgi.py and see where sync and async views run, compared with runserver, gunicorn, uvicorn and mod_wsgi.",
+      "description": "Serve a Django project from its wsgi.py under muructl run, reloading on each change, find out why the admin has no styles outside runserver and serve its static files in development, choose between Django's debug page and Muru's error page for a failing view, then serve the same project from asgi.py and see where sync and async views run, compared with runserver, gunicorn, uvicorn and mod_wsgi.",
       "tags": [
         "muru",
         "django",
@@ -209,7 +209,7 @@
     {
       "name": "reload-and-https-your-way",
       "title": "Reload and HTTPS beyond the defaults",
-      "description": "Make --reload watch a project's templates and data files and ignore the file it writes, watch a request in flight finish on the old release during a reload, then put another name on the development certificate, redirect HTTP to HTTPS, and serve a certificate from a CA of your own, compared with gunicorn's and uvicorn's options.",
+      "description": "Make a development run's reload watch a project's templates and data files and ignore the file it writes, watch a request in flight finish on the old release during a reload, put another name on the development certificate, redirect HTTP to HTTPS, serve a certificate from a CA of your own, then move every flag into the project's run table, compared with gunicorn's and uvicorn's options.",
       "tags": [
         "muru",
         "reload",

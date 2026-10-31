@@ -51,7 +51,9 @@ Read the startup lines from the top:
   address, the workers and the threads each has.
 
 - `muru: development mode: ...` lists what a development run does
-  differently from the daemon, which is how Muru runs in production.
+  differently from the daemon, which is how Muru runs in production:
+  error pages show tracebacks, nothing is kept between runs, the run
+  reloads when a source file changes, and only loopback is served.
 
 - `muru: dashboard on ...` is where the dashboard is, which the last
   page opens.
@@ -59,6 +61,10 @@ Read the startup lines from the top:
 - `muru: admin socket ...` is where `muructl`'s own commands, such as
   `muructl status` and `muructl logs --access`, reach this run from
   another terminal.
+
+- `muru: watching ... for changes to **/*.py` names the directory the
+  run watches for a change to reload on. Nothing in this workshop
+  changes a file, so it stays quiet.
 
 ```{verify}
 :id: shop-up

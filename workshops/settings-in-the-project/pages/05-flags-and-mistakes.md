@@ -15,7 +15,7 @@ options:
   - { text: "One: the flag wins for this run, and the table is left as it is", correct: true }
   - { text: "Two: the table is the project's setting and the flag is ignored", explanation: "A flag given for a setting the table also has wins, for that run only." }
   - { text: "None: muructl refuses a flag that contradicts the table", explanation: "Flags and the table are merged, flag first, so one run can differ without editing the project." }
-explanation: "muructl run takes each setting from the command line first, then the table, then its own default."
+explanation: "muructl run takes each setting from the command line first, then muru.local.toml, then the project's tables, then its own default."
 ```
 
 Stop the project and start it with one worker.
